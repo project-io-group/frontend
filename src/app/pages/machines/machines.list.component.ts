@@ -13,20 +13,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 export class MachinesListComponent {
 
   settings = {
-    add: {
-      addButtonContent: '<i class="nb-plus"></i>',
-      createButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="nb-edit"></i>',
-      saveButtonContent: '<i class="nb-checkmark"></i>',
-      cancelButtonContent: '<i class="nb-close"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="nb-trash"></i>',
-      confirmDelete: true,
-    },
+    actions: false,
     columns: {
       _poolName: {
         title: 'Pool Name',
@@ -55,27 +42,19 @@ export class MachinesListComponent {
 
   constructor() {
     const data = [
-    {_poolName: 'poolName1', _poolId: 'poolIDq', _machinesCount: '12', _enabled: 'Enabled',
+    {_poolName: 'poolName1', _poolId: 'poolIDq', _machinesCount: 60, _enabled: 'Enabled',
       _description: 'Description'},
-    {_poolName: 'poolName2', _poolId: 'poolIDw', _machinesCount: '12', _enabled: 'Enabled',
+    {_poolName: 'poolName2', _poolId: 'poolIDw', _machinesCount: 20, _enabled: 'Enabled',
       _description: 'Description'},
-    {_poolName: 'poolName3', _poolId: 'poolIDe', _machinesCount: '12', _enabled: 'Enabled',
+    {_poolName: 'poolName3', _poolId: 'poolIDe', _machinesCount: 12, _enabled: 'Disabled',
       _description: 'Description'},
-    {_poolName: 'poolName4', _poolId: 'poolIDr', _machinesCount: '12', _enabled: 'Enabled',
+    {_poolName: 'poolName4', _poolId: 'poolIDr', _machinesCount: 5, _enabled: 'Disabled',
       _description: 'Description'},
-    {_poolName: 'poolName5', _poolId: 'poolIDt', _machinesCount: '12', _enabled: 'Enabled',
+    {_poolName: 'poolName5', _poolId: 'poolIDt', _machinesCount: 46, _enabled: 'Enabled',
       _description: 'Description'},
-    {_poolName: 'poolName6', _poolId: 'poolIDy', _machinesCount: '12', _enabled: 'Enabled',
+    {_poolName: 'poolName6', _poolId: 'poolIDy', _machinesCount: 25, _enabled: 'Enabled',
       _description: 'Description'},
   ];
     this.source.load(data);
-  }
-
-  onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
   }
 }
