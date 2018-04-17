@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
+import { VMPool } from '../../services/vm_service/vm_pool';
+import { VMService } from '../../services/vm_service/vm_service';
 
 @Component({
   selector: 'ngx-machine-list',
@@ -11,27 +13,27 @@ import { LocalDataSource } from 'ng2-smart-table';
   `],
 })
 export class MachinesListComponent {
-
+  private data: VMPool[];
   settings = {
     actions: false,
     columns: {
-      _poolName: {
+      displayName: {
         title: 'Pool Name',
         type: 'string',
       },
-      _poolId: {
+      id: {
         title: 'Pool ID',
         type: 'string',
       },
-      _machinesCount: {
+      maximumCount: {
         title: 'Machines Count',
         type: 'number',
       },
-      _enabled: {
+      enabled: {
         title: 'Enabled',
         type: 'string',
       },
-      _description: {
+      description: {
         title: 'Description',
         type: 'string',
       },
@@ -40,21 +42,10 @@ export class MachinesListComponent {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor() {
-    const data = [
-    {_poolName: 'poolName1', _poolId: 'poolIDq', _machinesCount: 60, _enabled: 'Enabled',
-      _description: 'Description'},
-    {_poolName: 'poolName2', _poolId: 'poolIDw', _machinesCount: 20, _enabled: 'Enabled',
-      _description: 'Description'},
-    {_poolName: 'poolName3', _poolId: 'poolIDe', _machinesCount: 12, _enabled: 'Disabled',
-      _description: 'Description'},
-    {_poolName: 'poolName4', _poolId: 'poolIDr', _machinesCount: 5, _enabled: 'Disabled',
-      _description: 'Description'},
-    {_poolName: 'poolName5', _poolId: 'poolIDt', _machinesCount: 46, _enabled: 'Enabled',
-      _description: 'Description'},
-    {_poolName: 'poolName6', _poolId: 'poolIDy', _machinesCount: 25, _enabled: 'Enabled',
-      _description: 'Description'},
-  ];
-    this.source.load(data);
+  constructor(private vmService: VMService) {
+    vmService.getVMPools().subscribe(vmPools => {
+      this.data = vmPools;
+      this.source.load(this.data);
+    })
   }
 }

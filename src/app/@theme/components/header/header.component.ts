@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserService } from '../../../@core/data/users.service';
 import { AnalyticsService } from '../../../@core/utils/analytics.service';
+import { AppConfig } from '../../../services/app.config';
 
 @Component({
   selector: 'ngx-header',
@@ -17,6 +18,7 @@ export class HeaderComponent implements OnInit {
   user: any;
 
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+  APP_NAME: string = AppConfig.APP_NAME;
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,

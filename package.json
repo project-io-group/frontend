@@ -42,8 +42,6 @@
     "@nebular/security": "2.0.0-rc.6",
     "@nebular/theme": "2.0.0-rc.6",
     "@ng-bootstrap/ng-bootstrap": "1.0.0",
-    "ag-grid": "17.0.0",
-    "ag-grid-angular": "17.0.0",
     "bootstrap": "4.0.0",
     "classlist.js": "1.1.20150312",
     "core-js": "2.5.1",
