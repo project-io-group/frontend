@@ -46,9 +46,4 @@ export class VMPool {
   get description(): string {
     return this._description;
   }
-
-  static fromJSON(json: any): VMPool {
-    return new VMPool(json.reservations, json.id, json.shortName, json.displayName,
-      json.maximumCount, json.json.enabled, json.description);
-  }
 }

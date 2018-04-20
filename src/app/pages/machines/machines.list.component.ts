@@ -17,12 +17,12 @@ export class MachinesListComponent {
   settings = {
     actions: false,
     columns: {
-      displayName: {
-        title: 'Pool Name',
+      id: {
+        title: 'ID',
         type: 'string',
       },
-      id: {
-        title: 'Pool ID',
+      displayName: {
+        title: 'Pool Name',
         type: 'string',
       },
       maximumCount: {

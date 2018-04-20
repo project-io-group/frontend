@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AppConfig } from '../app.config';
+import { AppConfig } from '../../app.config';
 
 const BACKEND_URL = AppConfig.API_ENDPOINT;
 
