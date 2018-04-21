@@ -18,15 +18,20 @@ const NB_CORE_PROVIDERS = [
         service: NbEmailPassAuthProvider,
         config: {
           delay: 3000,
+          baseEndpoint: AppConfig.API_ENDPOINT,
+          token: {
+            key: 'token',
+          },
           login: {
             rememberMe: true,
-            endpoint: AppConfig.API_ENDPOINT + '/login',
+            endpoint: '/login',
             method: 'post',
           },
           register: {
             rememberMe: false,
             endpoint: '/sign-up',
             method: 'post',
+            username: '',
           },
         },
       },

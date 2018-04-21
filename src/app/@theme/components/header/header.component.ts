@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
-import { NbMenuService, NbSidebarService } from '@nebular/theme';
-import { UserService } from '../../../@core/data/users.service';
-import { AnalyticsService } from '../../../@core/utils/analytics.service';
-import { AppConfig } from '../../../app.config';
+import {NbMenuService, NbSidebarService} from '@nebular/theme';
+import {UserService} from '../../../@core/data/users.service';
+import {AnalyticsService} from '../../../@core/utils/analytics.service';
+import {AppConfig} from '../../../app.config';
+import {NbAuthJWTToken, NbAuthService} from '@nebular/auth';
 
 @Component({
   selector: 'ngx-header',
@@ -17,13 +18,23 @@ export class HeaderComponent implements OnInit {
 
   user: any;
 
-  userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
+  userMenu = [{title: 'Profile'}, {title: 'Log out'}];
   APP_NAME: string = AppConfig.APP_NAME;
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private userService: UserService,
-              private analyticsService: AnalyticsService) {
+              private analyticsService: AnalyticsService,
+              private authService: NbAuthService,
+  ) {
+    this.authService.onTokenChange()
+      .subscribe((token: NbAuthJWTToken) => {
+
+        if (token.isValid()) {
+          this.user = token.getPayload(); // here we receive a payload from the token and assigne it to our `user` variable
+        }
+
+      });
   }
 
   ngOnInit() {
@@ -31,12 +42,16 @@ export class HeaderComponent implements OnInit {
       .subscribe((users: any) => this.user = users.nick);
   }
 
-  toggleSidebar(): boolean {
+  toggleSidebar()
+    :
+    boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');
     return false;
   }
 
-  toggleSettings(): boolean {
+  toggleSettings()
+    :
+    boolean {
     this.sidebarService.toggle(false, 'settings-sidebar');
     return false;
   }
