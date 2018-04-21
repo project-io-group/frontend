@@ -1,52 +1,39 @@
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthProvider } from '@nebular/auth';
-import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
-import { of as observableOf } from 'rxjs/observable/of';
+import {ModuleWithProviders, NgModule, Optional, SkipSelf} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {NbAuthModule, NbEmailPassAuthProvider} from '@nebular/auth';
+import {NbRoleProvider, NbSecurityModule} from '@nebular/security';
+import {of as observableOf} from 'rxjs/observable/of';
 
-import { throwIfAlreadyLoaded } from './module-import-guard';
-import { DataModule } from './data/data.module';
-import { AnalyticsService } from './utils/analytics.service';
+import {throwIfAlreadyLoaded} from './module-import-guard';
+import {DataModule} from './data/data.module';
+import {AnalyticsService} from './utils/analytics.service';
+import {AppConfig} from '../app.config';
 
-const socialLinks = [
-  {
-    url: 'https://github.com/akveo/nebular',
-    target: '_blank',
-    icon: 'socicon-github',
-  },
-  {
-    url: 'https://www.facebook.com/akveo/',
-    target: '_blank',
-    icon: 'socicon-facebook',
-  },
-  {
-    url: 'https://twitter.com/akveo_inc',
-    target: '_blank',
-    icon: 'socicon-twitter',
-  },
-];
 
 const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
   ...NbAuthModule.forRoot({
     providers: {
       email: {
-        service: NbDummyAuthProvider,
+        service: NbEmailPassAuthProvider,
         config: {
           delay: 3000,
           login: {
             rememberMe: true,
+            endpoint: AppConfig.API_ENDPOINT + '/login',
+            method: 'post',
+          },
+          register: {
+            rememberMe: false,
+            endpoint: '/sign-up',
+            method: 'post',
           },
         },
       },
     },
     forms: {
-      login: {
-        socialLinks: socialLinks,
-      },
-      register: {
-        socialLinks: socialLinks,
-      },
+      login: {},
+      register: {},
     },
   }).providers,
   NbSecurityModule.forRoot({
