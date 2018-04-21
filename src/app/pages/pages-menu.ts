@@ -8,6 +8,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
+    title: 'Virtual Machines',
+    icon: 'nb-list',
+    link: '/pages/virtual-machines',
+    home: true,
+  },
+  {
     title: 'FEATURES',
     group: true,
   },
