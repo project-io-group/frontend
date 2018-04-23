@@ -1,0 +1,108 @@
+<nb-card>
+
+
+  <nb-card-header>
+    Reservation
+  </nb-card-header>
+  <nb-card-body>
+    <form [formGroup]='form' (ngSubmit)="onSubmit(form.value)"
+          [class.error]="!form.valid && form.touched">
+
+      <div class="row">
+        <div class='form-group col-lg-6'
+             [class.error]="!form.get('courseName').valid && form.get('courseName').touched">
+          <label [for]="courseName" >Course name</label>
+          <input [id]="courseName" type="text" class='form-control'
+                 [ngClass]="{'form-control-danger': !form.controls['courseName'].valid && form.controls['courseName'].touched, 'form-control-success': form.controls['courseName'].valid && form.controls['courseName'].touched}"
+                 [formControl]="form.controls['courseName']"/>
+          <div
+            *ngIf="form.controls['courseName'].touched && form.controls['courseName'].hasError('required')"
+            class="text-danger" style="margin-top: 4px">Course Name is required</div>
+        </div>
+
+        <div class="form-group col-lg-6" >
+          <label>VM Pool</label>
+          <ng2-completer (blur)="touchCompleter()"
+                         [inputClass]="!form.controls['vmPool'].valid && completerTouched ? 'form-control' + ' form-control-danger' : 'form-control'
+                       + form.controls['vmPool'].valid && completerTouched ? 'form-control form-control-success' : 'form-control'"
+                         [datasource]="vmPoolCompleterData" [autoMatch]="true"
+                         [clearUnselected]="true" [formControl]="form.controls['vmPool']"
+                         [minSearchLength]="1">
+          </ng2-completer>
+          <div
+            *ngIf="completerTouched && form.controls['vmPool'].hasError('required')"
+            class="text-danger" style="margin-top: 4px">You need to specify Virtual Machines
+            Pool</div>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class='form-group col-lg-6'>
+          <label [for]="machinesCount" >Number of reserved machines</label>
+          <input [id]="machinesCount" type="text" class='form-control'
+                 [ngClass]="{'form-control-danger': !form.controls['machinesCount'].valid && form.controls['machinesCount'].touched,
+               'form-control-success': form.controls['machinesCount'].valid && form.controls['machinesCount'].touched}"
+                 [formControl]="form.controls['machinesCount']"/>
+          <div
+            *ngIf="form.controls['machinesCount'].touched && form.controls['machinesCount'].hasError('required')"
+            class="text-danger" style="margin-top: 4px">You need to specify number of machines</div>
+          <div
+            *ngIf="form.controls['machinesCount'].touched && form.controls['machinesCount'].hasError('pattern')"
+            class="text-danger" style="margin-top: 4px">Number of machines has to be a number</div>
+        </div>
+
+        <div class="input-wrapper col-lg-6">
+          <label [for]="dateTime" >Date and Time when (1.5 h from specified time):</label>
+          <input [id]="dateTime" class="form-control" [formControl]="form.controls['date']"
+                 [ngClass]="{'form-control-danger': !form.controls['date'].valid && form.controls['date'].touched, 'form-control-success': form.controls['date'].valid && form.controls['date'].touched}"
+                 [owlDateTimeTrigger]="dtPicker1" [owlDateTime]="dtPicker1">
+          <owl-date-time #dtPicker1></owl-date-time>
+          <div
+            *ngIf="form.controls['date'].touched && form.controls['date'].hasError('required')"
+            class="text-danger" style="margin-top: 4px">You need to specify reservation date</div>
+        </div>
+      </div>
+
+
+      <div class="col-sm-4" style="margin: 15px">
+        <nb-checkbox [formControl]="form.controls['cyclic']">Cyclic Reservation</nb-checkbox>
+      </div>
+
+
+      <div *ngIf="form.controls['cyclic'].value">
+
+        <div class="row">
+          <div class="form-group col-lg-6">
+            <label [for]="interval" >Interval (days)</label>
+            <input [id]="interval" type="text" class='form-control'
+                   [ngClass]="{'form-control-danger': !form.controls['interval'].valid && form.controls['interval'].touched,
+               'form-control-success': form.controls['interval'].valid && form.controls['interval'].touched}"
+                   [formControl]="form.controls['interval']"/>
+            <div
+              *ngIf="form.controls['interval'].touched && form.controls['interval'].hasError('required')"
+              class="text-danger" style="margin-top: 4px">You need to specify number of machines</div>
+            <div
+              *ngIf="form.controls['interval'].touched && form.controls['interval'].hasError('pattern')"
+              class="text-danger" style="margin-top: 4px">Number of machines has to be a number</div>
+
+          </div>
+
+          <div class="input-wrapper col-lg-6">
+            <label [for]="endDate" >End date:</label>
+            <input [id]="endDate" class="form-control" [formControl]="form.controls['endDate']"
+                   [ngClass]="{'form-control-danger': !form.controls['endDate'].valid && form.controls['endDate'].touched, 'form-control-success': form.controls['endDate'].valid && form.controls['endDate'].touched}"
+                   [owlDateTimeTrigger]="dtPicker2" [owlDateTime]="dtPicker2">
+            <owl-date-time #dtPicker2></owl-date-time>
+            <div
+              *ngIf="form.controls['endDate'].touched && form.controls['endDate'].hasError('required')"
+              class="text-danger" style="margin-top: 4px">You need to specify end of cyclic
+              reservation</div>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class='btn btn-default btn-raised btn-hero-success btn-demo'>Submit</button>
+    </form>
+  </nb-card-body>
+</nb-card>

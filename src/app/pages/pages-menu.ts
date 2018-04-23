@@ -14,6 +14,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
+    title: 'Reservation',
+    icon: 'nb-compose',
+    link: '/pages/reservation',
+  },
+  {
     title: 'FEATURES',
     group: true,
   },

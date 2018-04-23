@@ -1,0 +1,9 @@
+.completer-limit /deep/ .completer-dropdown {
+  overflow-y: auto;
+  max-height: 10rem;
+  overflow-x: hidden;
+}
+
+.btn {
+  margin: 3rem;
+}
