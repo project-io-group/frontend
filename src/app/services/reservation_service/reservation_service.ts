@@ -11,7 +11,8 @@ export class ReservationService {
   constructor(private backendServicesProxy: BackendServicesProxy, private http: HttpClient) {
   }
 
-  getReservations(): Observable<Reservation[]> {
-    return this.http.get<Reservation[]>(this.backendServicesProxy.createRequestURL('/reservations/all/'))
+  getReservationsForUser(userId: number): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(
+      this.backendServicesProxy.createRequestURL('/reservations?userId=' + userId))
   }
 }

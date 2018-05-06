@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
-import { VMPool } from '../../services/vm_service/vm_pool';
-import { VMService } from '../../services/vm_service/vm_service';
+import {Component} from '@angular/core';
+import {LocalDataSource} from 'ng2-smart-table';
+import {VMPool} from '../../services/vm_service/vm_pool';
+import {VMService} from '../../services/vm_service/vm_service';
 
 @Component({
   selector: 'ngx-machine-list',
@@ -42,7 +42,7 @@ export class MachinesListComponent {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private vmService: VMService) {
+  constructor(vmService: VMService) {
     vmService.getVMPools().subscribe(vmPools => {
       this.data = vmPools;
       this.source.load(this.data);

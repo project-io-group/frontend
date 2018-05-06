@@ -4,7 +4,7 @@ import {NgModule} from '@angular/core';
 import {PagesComponent} from './pages.component';
 import {DashboardComponent} from './dashboard/dashboard.component';
 import {MachinesListComponent} from './machines/machines.list.component';
-import {ReservationsListComponent} from "./reservations/reservations.list.component";
+import {ReservationsListComponent} from './reservations/reservations.list.component';
 
 const routes: Routes = [{
   path: '',

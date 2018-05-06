@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {LocalDataSource} from 'ng2-smart-table';
-import {Reservation} from '../../services/reservation_service/reservation';
 import {ReservationService} from '../../services/reservation_service/reservation_service';
+import {ReservationRow} from './reservation_row';
 
 @Component({
   selector: 'ngx-reservation-list',
@@ -13,6 +13,8 @@ import {ReservationService} from '../../services/reservation_service/reservation
   `],
 })
 export class ReservationsListComponent {
+  static USER_PLACEHOLDER = -1;
+  source: LocalDataSource = new LocalDataSource();
   settings = {
     actions: false,
     columns: {
@@ -36,19 +38,40 @@ export class ReservationsListComponent {
         title: 'Machines',
         type: 'number',
       },
-      dates: {
-        title: 'Dates',
+      startTime: {
+        title: 'Start Time',
+        type: 'string',
+      },
+      endTime: {
+        title: 'End Time',
+        type: 'string',
+      },
+      date: {
+        title: 'Date',
         type: 'string',
       },
     },
   };
-  source: LocalDataSource = new LocalDataSource();
-  private data: Reservation[];
+  private data: ReservationRow[];
 
-  constructor(private reservationService: ReservationService) {
-    reservationService.getReservations().subscribe(reservations => {
-      this.data = reservations;
+  constructor(reservationService: ReservationService) {
+    reservationService.getReservationsForUser(ReservationsListComponent.USER_PLACEHOLDER).subscribe(reservations => {
+
+      this.data = reservations.map(r =>
+        r.dates.map(d =>
+          new ReservationRow(
+            r.id,
+            r.owner.name,
+            r.courseName,
+            r.vmPool.shortName,
+            r.machinesNumber,
+            r.startTime,
+            r.endTime,
+            d,
+          ))).reduce((previousValue, currentValue) => previousValue.concat(currentValue), []);
+
       this.source.load(this.data);
+
     })
   }
 }

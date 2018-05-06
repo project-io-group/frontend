@@ -1,21 +1,22 @@
-export class Reservation {
+export class ReservationRow {
 
   constructor(
     private _id: number,
-    private _owner: User,
+    private _owner: string,
     private _courseName: string,
-    private _vmPool: VMPoolShort,
+    private _vmPool: string,
     private _machinesNumber: number,
     private _startTime: string,
     private _endTime: string,
-    private _dates: string[]) {
+    private _date: string) {
   }
+
 
   get id(): number {
     return this._id;
   }
 
-  get owner(): User {
+  get owner(): string {
     return this._owner;
   }
 
@@ -23,7 +24,7 @@ export class Reservation {
     return this._courseName;
   }
 
-  get vmPool(): VMPoolShort {
+  get vmPool(): string {
     return this._vmPool;
   }
 
@@ -39,8 +40,7 @@ export class Reservation {
     return this._endTime;
   }
 
-  get dates(): string[] {
-    return this._dates;
+  get date(): string {
+    return this._date;
   }
-
 }

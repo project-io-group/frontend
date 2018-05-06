@@ -2,12 +2,12 @@ import {BackendServicesProxy} from './remote/backend.services.proxy';
 import {NgModule} from '@angular/core';
 import {VMService} from './vm_service/vm_service';
 import {HttpClientModule} from '@angular/common/http';
-import {ReservationService} from "./reservation_service/reservation_service";
+import {ReservationService} from './reservation_service/reservation_service';
 
 const OWN_PROVIDERS = [
   BackendServicesProxy,
   VMService,
-  ReservationService
+  ReservationService,
 ];
 
 const OWN_COMPONENTS = [];
