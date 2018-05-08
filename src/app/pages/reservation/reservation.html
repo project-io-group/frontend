@@ -132,10 +132,11 @@
                    [formControl]="form.controls['interval']"/>
             <div
               *ngIf="form.controls['interval'].touched && form.controls['interval'].hasError('required')"
-              class="text-danger" style="margin-top: 4px">You need to specify number of machines</div>
+              class="text-danger" style="margin-top: 4px">You need to specify interval for cyclic
+              reservation</div>
             <div
               *ngIf="form.controls['interval'].touched && form.controls['interval'].hasError('pattern')"
-              class="text-danger" style="margin-top: 4px">Number of machines has to be a number</div>
+              class="text-danger" style="margin-top: 4px">Interval has to be a number</div>
 
           </div>
 

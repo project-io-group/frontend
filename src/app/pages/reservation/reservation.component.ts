@@ -6,7 +6,6 @@ import { VMPool } from '../../services/vm_service/vm_pool';
 
 import {
   ReservationRequestDto, ReservationService,
-  ReservationService,
 } from '../../services/reservation_service/reservationService';
 import { AlertService } from '../../services/UI_tools/alertService';
 import moment = require('moment');
@@ -112,9 +111,12 @@ export class ReservationComponent {
         end_time)).subscribe(
         response => {
           let modalContent = '';
-          if (response.daysNotReserved.length > 0) {
+          if (response.daysNotReserved.length == all_dates.size) {
+            modalContent = 'Machines are not available on selected dates, try using diferent' +
+              ' pool, minimazing number of machines or contact the admin'
+          } else if (response.daysNotReserved.length > 0) {
             modalContent = 'Selected Virtual Machine Pools are' +
-              ' not available on selected dates: ' + response.daysNotReserved.map(date => moment(date).format('YYYY-MM-DD')).join(', ') +
+              ' not available on selected date(s): ' + response.daysNotReserved.map(date => moment(date).format('YYYY-MM-DD')).join(', ') +
               '. Are You sure want to reserve all othres except mentioned above?';
           } else {
             modalContent = 'Enetered date is available. Are You' +
