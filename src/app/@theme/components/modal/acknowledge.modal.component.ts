@@ -15,17 +15,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
     </div>
     <div class="modal-footer">
       <button class="btn btn-md btn-primary" (click)="onConfirm()">OK</button>
-      <button class="btn btn-md btn-secondary" (click)="onCancel()">Cancel</button>
     </div>
   `,
 })
-export class ModalComponent {
-
+export class AcknowledgeModalComponent {
 
   modalOnConfirm: () => void = () => {};
-  modalOnCancel: () => void = () => {};
   modalHeader: string;
-  modalContent = ``;
+  modalContent: string = ``;
 
   constructor(private activeModal: NgbActiveModal) { }
 
@@ -35,7 +32,6 @@ export class ModalComponent {
   }
 
   onCancel() {
-    this.modalOnCancel();
     this.activeModal.close();
   }
 }

@@ -5,32 +5,41 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ReservationService {
-  constructor(private backendServicesProxy: BackendServicesProxy, private http: HttpClient){
+  constructor(private backendServicesProxy: BackendServicesProxy, private http: HttpClient) {
   }
 
-  requestSingleReservation(reservationRequest: ReservationRequest): Observable<any> {
-    return this.http.post(this.backendServicesProxy.createRequestURL('/reservations/single/create'), reservationRequest)
+  requestReservation(reservationRequestDto: ReservationRequestDto): Observable<any> {
+    return this.http.post(this.backendServicesProxy.createRequestURL('/reservation'), reservationRequestDto)
   }
 
-  confirmSingleReservation(reservationId: number): Observable<any> {
-    return this.http.post(this.backendServicesProxy.createRequestURL('/reservations/single/confirm'), {reservationId: reservationId})
+  confirmReservation(reservationId: number): Observable<any> {
+    return this.http.put(this.backendServicesProxy.createRequestURL('/reservation/confirm'), reservationId)
+  }
+
+  cancelReservation(reservationId: number): Observable<any> {
+    return this.http.delete(this.backendServicesProxy.createRequestURL('/reservation/cancel') + '?reservationId=' + reservationId)
   }
 
 }
 
 
-export class ReservationRequest {
+export class ReservationRequestDto {
   userId: number;
   vmPoolId: number;
   courseName: string;
-  machinesCount: number;
-  date: Date;
+  machinesNumber: number;
+  dates: string[];
+  startTime: string;
+  endTime: string;
 
-  constructor(userId: number, vmPoolId: number, courseName: string, machinesCount: number, date: Date) {
+  constructor(userId: number, vmPoolId: number, courseName: string, machinesNumber: number,
+              dates: string[], startTime: string, endTime: string) {
     this.userId = userId;
     this.vmPoolId = vmPoolId;
     this.courseName = courseName;
-    this.machinesCount = machinesCount;
-    this.date = date;
+    this.machinesNumber = machinesNumber;
+    this.dates = dates;
+    this.startTime = startTime;
+    this.endTime = endTime;
   }
 }

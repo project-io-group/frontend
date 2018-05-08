@@ -21,5 +21,5 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     ReservationComponent,
   ],
 })
-export class ReservationModule{
+export class ReservationModule {
 }

@@ -43,7 +43,7 @@ export class MachinesListComponent {
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private vmService: VMService) {
-    vmService.getVMPools().subscribe(vmPools => {
+    this.vmService.getVMPools().subscribe(vmPools => {
       this.data = vmPools;
       this.source.load(this.data);
     })

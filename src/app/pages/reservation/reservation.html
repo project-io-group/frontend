@@ -4,12 +4,13 @@
   <nb-card-header>
     Reservation
   </nb-card-header>
+
   <nb-card-body>
-    <form [formGroup]='form' (ngSubmit)="onSubmit(form.value)"
+    <form [formGroup]='form'
           [class.error]="!form.valid && form.touched">
 
       <div class="row">
-        <div class='form-group col-lg-6'
+        <div class='form-group col-md-6'
              [class.error]="!form.get('courseName').valid && form.get('courseName').touched">
           <label [for]="courseName" >Course name</label>
           <input [id]="courseName" type="text" class='form-control'
@@ -20,7 +21,7 @@
             class="text-danger" style="margin-top: 4px">Course Name is required</div>
         </div>
 
-        <div class="form-group col-lg-6" >
+        <div class="form-group col-md-6" >
           <label>VM Pool</label>
           <ng2-completer (blur)="touchCompleter()"
                          [inputClass]="!form.controls['vmPool'].valid && completerTouched ? 'form-control' + ' form-control-danger' : 'form-control'
@@ -39,42 +40,91 @@
 
 
       <div class="row">
-        <div class='form-group col-lg-6'>
-          <label [for]="machinesCount" >Number of reserved machines</label>
-          <input [id]="machinesCount" type="text" class='form-control'
-                 [ngClass]="{'form-control-danger': !form.controls['machinesCount'].valid && form.controls['machinesCount'].touched,
-               'form-control-success': form.controls['machinesCount'].valid && form.controls['machinesCount'].touched}"
-                 [formControl]="form.controls['machinesCount']"/>
+        <div class='form-group col-md-6'>
+          <label [for]="machinesNumber" >Number of reserved machines</label>
+          <input [id]="machinesNumber" type="text" class='form-control'
+                 [ngClass]="{'form-control-danger': !form.controls['machinesNumber'].valid && form.controls['machinesNumber'].touched,
+               'form-control-success': form.controls['machinesNumber'].valid && form.controls['machinesNumber'].touched}"
+                 [formControl]="form.controls['machinesNumber']"/>
           <div
-            *ngIf="form.controls['machinesCount'].touched && form.controls['machinesCount'].hasError('required')"
+            *ngIf="form.controls['machinesNumber'].touched && form.controls['machinesNumber'].hasError('required')"
             class="text-danger" style="margin-top: 4px">You need to specify number of machines</div>
           <div
-            *ngIf="form.controls['machinesCount'].touched && form.controls['machinesCount'].hasError('pattern')"
+            *ngIf="form.controls['machinesNumber'].touched && form.controls['machinesNumber'].hasError('pattern')"
             class="text-danger" style="margin-top: 4px">Number of machines has to be a number</div>
         </div>
+      </div>
 
-        <div class="input-wrapper col-lg-6">
-          <label [for]="dateTime" >Date and Time when (1.5 h from specified time):</label>
-          <input [id]="dateTime" class="form-control" [formControl]="form.controls['date']"
-                 [ngClass]="{'form-control-danger': !form.controls['date'].valid && form.controls['date'].touched, 'form-control-success': form.controls['date'].valid && form.controls['date'].touched}"
+      <div class="row">
+        <div class="form-group input-wrapper col-md-6">
+          <label [for]="startTime" >Specify Start Time:</label>
+          <input [id]="startTime" class="form-control" [formControl]="timings.controls['startTime']"
+                 [ngClass]="{'form-control-danger': (!timings.controls['startTime'].valid && timings.controls['startTime'].touched) || (!(timings.controls['endTime'].valid && timings.valid) && timings.controls['endTime'].touched && timings.controls['startTime'].touched), 'form-control-success': timings.controls['startTime'].valid && timings.controls['startTime'].touched && timings.valid}"
                  [owlDateTimeTrigger]="dtPicker1" [owlDateTime]="dtPicker1">
-          <owl-date-time #dtPicker1></owl-date-time>
+          <owl-date-time [pickerType]="'timer'" #dtPicker1></owl-date-time>
           <div
-            *ngIf="form.controls['date'].touched && form.controls['date'].hasError('required')"
-            class="text-danger" style="margin-top: 4px">You need to specify reservation date</div>
+            *ngIf="timings.controls['startTime'].touched && timings.controls['startTime'].hasError('required')"
+            class="text-danger" style="margin-top: 4px">You need to specify reservation start Time</div>
+        </div>
+
+
+        <div class="form-group input-wrapper col-md-6">
+          <label [for]="endTime" >Specify End Time:</label>
+          <input [id]="endTime" class="form-control" [formControl]="timings.controls['endTime']"
+                 [ngClass]="{'form-control-danger': (!timings.controls['endTime'].valid && timings.controls['endTime'].touched) || (!(timings.controls['endTime'].valid && timings.valid) && timings.controls['endTime'].touched && timings.controls['startTime'].touched),
+                 'form-control-success': timings.controls['endTime'].valid && timings.controls['endTime'].touched && timings.valid}"
+                 [owlDateTimeTrigger]="dtPicker2" [owlDateTime]="dtPicker2">
+          <owl-date-time [pickerType]="'timer'" #dtPicker2></owl-date-time>
+          <div
+            *ngIf="timings.controls['endTime'].touched && timings.controls['endTime'].hasError('required')"
+            class="text-danger" style="margin-top: 4px">You need to specify reservation start Time</div>
+          <div
+            *ngIf="timings.controls['endTime'].touched && timings.controls['startTime'].touched && timings.hasError('timingsBefore')"
+            class="text-danger" style="margin-top: 4px">End time has to be earlier than start time!</div>
         </div>
       </div>
 
 
+      <div formArrayName="dates" *ngFor="let date of form.get('dates').controls; let i = index;">
+        <div class="row">
+          <div class="form-group input-wrapper col-md-6">
+            <label *ngIf="form.get('dates').controls.length === 1 && i == 0" [for]="'date' + i">Date:</label>
+            <label *ngIf="form.get('dates').controls.length > 1 && i == 0" [for]="'date' + i">Dates:</label>
+            <input [id]="'date' + i" class="form-control" [formControl]="date"
+                   [ngClass]="{'form-control-danger': !date.valid && date.touched, 'form-control-success': date.valid && date.touched}"
+                   [owlDateTimeTrigger]="dtPicker3" [owlDateTime]="dtPicker3">
+            <owl-date-time [pickerType]="'calendar'" #dtPicker3></owl-date-time>
+            <div
+              *ngIf="date.touched && date.hasError('required')"
+              class="text-danger" style="margin-top: 4px">Reservation date cannot be empty</div>
+          </div>
+          <div *ngIf="i == 0" class="input-wrapper col-md-6 btn-date-add-container">
+            <button class="btn btn-default btn-raised btn-hero-info"
+                    (click)="addDate()">Add date</button>
+          </div>
+          <div *ngIf="i != 0"  class="input-wrapper col-md-6 btn-date-remove-container">
+            <button class="btn btn-default btn-raised btn-hero-warning"
+                    (click)="removeDate(i)" style="">Remove
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+
       <div class="col-sm-4" style="margin: 15px">
         <nb-checkbox [formControl]="form.controls['cyclic']">Cyclic Reservation</nb-checkbox>
+        <div
+          *ngIf="form.controls['cyclic'].value && form.controls['dates'].length > 1"
+          class="text-warning" style="margin-top: 4px">Note, that reservations will repeat
+          for every date specified above</div>
       </div>
 
 
       <div *ngIf="form.controls['cyclic'].value">
 
         <div class="row">
-          <div class="form-group col-lg-6">
+          <div class="form-group col-md-6">
             <label [for]="interval" >Interval (days)</label>
             <input [id]="interval" type="text" class='form-control'
                    [ngClass]="{'form-control-danger': !form.controls['interval'].valid && form.controls['interval'].touched,
@@ -89,20 +139,25 @@
 
           </div>
 
-          <div class="input-wrapper col-lg-6">
+          <div class="input-wrapper col-md-6">
             <label [for]="endDate" >End date:</label>
             <input [id]="endDate" class="form-control" [formControl]="form.controls['endDate']"
                    [ngClass]="{'form-control-danger': !form.controls['endDate'].valid && form.controls['endDate'].touched, 'form-control-success': form.controls['endDate'].valid && form.controls['endDate'].touched}"
-                   [owlDateTimeTrigger]="dtPicker2" [owlDateTime]="dtPicker2">
-            <owl-date-time #dtPicker2></owl-date-time>
+                   [owlDateTimeTrigger]="dtPick" [owlDateTime]="dtPick">
+            <owl-date-time [pickerType]="'calendar'" #dtPick></owl-date-time>
             <div
               *ngIf="form.controls['endDate'].touched && form.controls['endDate'].hasError('required')"
-              class="text-danger" style="margin-top: 4px">You need to specify end of cyclic
-              reservation</div>
+              class="text-danger" style="margin-top: 4px">You need to specify end of cyclic reservation</div>
+            <div
+              *ngIf="form.controls['endDate'].touched && !endDateIsLast"
+              class="text-warning" style="margin-top: 4px">At least one of the dates is after the end of cyclic
+              reservations and will be scheduled only once.</div>
           </div>
         </div>
       </div>
-      <button type="submit" class='btn btn-default btn-raised btn-hero-success btn-demo'>Submit</button>
+      <button type="submit" (click)="onSubmit(form.value)"
+              class='btn btn-default btn-raised btn-hero-success btn-submit'>
+        Submit</button>
     </form>
   </nb-card-body>
 </nb-card>
