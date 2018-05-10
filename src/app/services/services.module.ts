@@ -4,12 +4,14 @@ import { VMService } from './vm_service/vm_service';
 import { HttpClientModule } from '@angular/common/http';
 import { ReservationService } from './reservation_service/reservationService';
 import { AlertService } from './UI_tools/alertService';
+import { StatsService } from './stats/stats.service';
 
 const OWN_PROVIDERS = [
   BackendServicesProxy,
   VMService,
   ReservationService,
   AlertService,
+  StatsService,
 ];
 
 const OWN_COMPONENTS = [];

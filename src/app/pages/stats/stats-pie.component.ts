@@ -1,5 +1,7 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
+import { StatsInterval, StatsService } from '../../services/stats/stats.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'ngx-echarts-pie',
@@ -7,11 +9,21 @@ import { NbThemeService } from '@nebular/theme';
     <div echarts [options]="options" class="echart"></div>
   `,
 })
-export class EchartsPieComponent implements AfterViewInit, OnDestroy {
+export class StatsPieComponent implements AfterViewInit, OnDestroy {
   options: any = {};
   themeSubscription: any;
 
-  constructor(private theme: NbThemeService) {
+  data: any;
+  labels: any;
+  current_data_subscription: Subscription;
+
+  constructor(private theme: NbThemeService, private statsService: StatsService) {
+    //TODO: Get real data
+    this.current_data_subscription = this.statsService.getHoursUsageInInterval(new StatsInterval('02-02-2018', '03-03-2019'))
+      .subscribe(data => {
+        this.data = data;
+        this.labels = data.map(stat => stat.name);
+    })
   }
 
   ngAfterViewInit() {
@@ -19,6 +31,7 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
 
       const colors = config.variables;
       const echarts: any = config.variables.echarts;
+
 
       this.options = {
         backgroundColor: echarts.bg,
@@ -30,7 +43,7 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
         legend: {
           orient: 'vertical',
           left: 'left',
-          data: ['USA', 'Germany', 'France', 'Canada', 'Russia'],
+          data: this.labels,
           textStyle: {
             color: echarts.textColor,
           },
@@ -41,13 +54,7 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
             type: 'pie',
             radius: '80%',
             center: ['50%', '50%'],
-            data: [
-              { value: 335, name: 'Germany' },
-              { value: 310, name: 'France' },
-              { value: 234, name: 'Canada' },
-              { value: 135, name: 'Russia' },
-              { value: 1548, name: 'USA' },
-            ],
+            data: this.data,
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -75,7 +82,19 @@ export class EchartsPieComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+
+  //TODO: This should be called when interval submit button changes
+  getStatsForNewInterval(): void {
+    this.current_data_subscription.unsubscribe();
+    this.current_data_subscription = this.statsService.getHoursUsageInInterval(new StatsInterval('newDatefrom', 'newDateTo'))
+      .subscribe(data => {
+        this.data = data;
+        this.labels = data.map(stat => stat.name);
+      })
+  }
+
   ngOnDestroy(): void {
     this.themeSubscription.unsubscribe();
+    this.current_data_subscription.unsubscribe();
   }
 }

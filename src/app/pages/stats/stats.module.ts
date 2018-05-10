@@ -5,11 +5,11 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { FormsModule } from '@angular/forms';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import { EchartsComponent } from './echarts.component';
-import { EchartsAreaStackComponent } from './echarts-area-stack.component';
-import { EchartsMultipleXaxisComponent } from './echarts-multiple-xaxis.component';
-import { EchartsPieComponent } from './echarts-pie.component';
-import { EchartsRadarComponent } from './echarts-radar.component';
+import { StatsComponent } from './stats.component';
+import { StatsAreaStackComponent } from './stats-area-stack.component';
+import { StatsMultipleXaxisComponent } from './stats-multiple-xaxis.component';
+import { StatsPieComponent } from './stats-pie.component';
+import { StatsRadarComponent } from './stats-radar.component';
 
 
 @NgModule({
@@ -22,11 +22,11 @@ import { EchartsRadarComponent } from './echarts-radar.component';
     NgxEchartsModule,
   ],
   declarations: [
-    EchartsAreaStackComponent,
-    EchartsMultipleXaxisComponent,
-    EchartsPieComponent,
-    EchartsRadarComponent,
-    EchartsComponent,
+    StatsAreaStackComponent,
+    StatsMultipleXaxisComponent,
+    StatsPieComponent,
+    StatsRadarComponent,
+    StatsComponent,
   ],
 })
 export class StatsModule {

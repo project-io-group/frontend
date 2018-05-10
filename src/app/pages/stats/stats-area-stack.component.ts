@@ -6,7 +6,7 @@ import { NbThemeService } from '@nebular/theme';
     <div echarts [options]="options" class="echart"></div>
   `,
 })
-export class EchartsAreaStackComponent implements AfterViewInit, OnDestroy {
+export class StatsAreaStackComponent implements AfterViewInit, OnDestroy {
   options: any = {};
   themeSubscription: any;
 
