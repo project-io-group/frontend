@@ -111,7 +111,7 @@ export class ReservationComponent {
         end_time)).subscribe(
         response => {
           let modalContent = '';
-          if (response.daysNotReserved.length == all_dates.size) {
+          if (response.daysNotReserved.length === all_dates.size) {
             modalContent = 'Machines are not available on selected dates, try using diferent' +
               ' pool, minimazing number of machines or contact the admin'
           } else if (response.daysNotReserved.length > 0) {

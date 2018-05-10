@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MachinesListComponent } from './machines/machines.list.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { EchartsComponent } from './stats/echarts.component';
 
 const routes: Routes = [{
   path: '',
@@ -21,6 +22,10 @@ const routes: Routes = [{
     {
       path: 'reservation',
       component: ReservationComponent,
+    },
+    {
+      path: 'stats',
+      component: EchartsComponent,
     },
     {
       path: '',

@@ -19,6 +19,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/reservation',
   },
   {
+    title: 'Statistics',
+    icon: 'nb-bar-chart',
+    link: '/pages/stats',
+  },
+  {
     title: 'FEATURES',
     group: true,
   },
