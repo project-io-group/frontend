@@ -10,7 +10,7 @@ import { NbThemeService } from '@nebular/theme';
 export class StatsBasicLinesComponent implements AfterViewInit, OnDestroy, OnChanges {
   options: any = {};
   themeSubscription: any;
-  private colors:any;
+  private colors: any;
   private echarts: any;
 
   @Input()
@@ -32,8 +32,7 @@ export class StatsBasicLinesComponent implements AfterViewInit, OnDestroy, OnCha
   }
 
   ngOnChanges(): void {
-    if(this.colors && this.data && this.echarts && this.labels){
-      console.log('changes');
+    if (this.colors && this.data && this.echarts && this.labels) {
       this.setOptions();
     }
   }
@@ -47,57 +46,56 @@ export class StatsBasicLinesComponent implements AfterViewInit, OnDestroy, OnCha
         axisPointer: {
           type: 'cross',
           label: {
-            backgroundColor: this.echarts.tooltipBackgroundColor
-          }
-        }
+            backgroundColor: this.echarts.tooltipBackgroundColor,
+          },
+        },
       },
       legend: {
         data: this.labels,
         textStyle: {
-          color: this.echarts.textColor
-        }
+          color: this.echarts.textColor,
+        },
       },
       grid: {
         left: '3%',
         right: '4%',
         bottom: '3%',
-        containLabel: true
+        containLabel: true,
       },
       xAxis: {
         type: 'category',
-        data: Array.apply(0, Array(12)).map(function(x,y) { return (y+1).toString() }),
+        data: Array.apply(0, Array(12)).map(function(x, y) { return (y + 1).toString() }),
         axisLine: {
           lineStyle: {
-            color: this.echarts.axisLineColor
-          }
+            color: this.echarts.axisLineColor,
+          },
         },
         axisLabel: {
           textStyle: {
-            color: this.echarts.textColor
-          }
-        }
+            color: this.echarts.textColor,
+          },
+        },
       },
       yAxis: {
         type: 'value',
         axisLine: {
           lineStyle: {
-            color: this.echarts.axisLineColor
-          }
+            color: this.echarts.axisLineColor,
+          },
         },
         splitLine: {
           lineStyle: {
-            color: this.echarts.splitLineColor
-          }
+            color: this.echarts.splitLineColor,
+          },
         },
         axisLabel: {
           textStyle: {
-            color: this.echarts.textColor
-          }
-        }
+            color: this.echarts.textColor,
+          },
+        },
       },
-      series: this.data
+      series: this.data,
     };
-    console.log(this.options)
   }
 
   ngOnDestroy(): void {

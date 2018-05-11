@@ -23,7 +23,7 @@ export class StatsAreaStackComponent implements AfterViewInit, OnDestroy, OnChan
 
 
   ngOnChanges(): void {
-    if(this.colors && this.data && this.echarts && this.labels){
+    if (this.colors && this.data && this.echarts && this.labels) {
       this.setOptions();
     }
   }
@@ -49,21 +49,21 @@ export class StatsAreaStackComponent implements AfterViewInit, OnDestroy, OnChan
         axisPointer: {
           type: 'cross',
           label: {
-            backgroundColor: this.echarts.tooltipBackgroundColor
-          }
-        }
+            backgroundColor: this.echarts.tooltipBackgroundColor,
+          },
+        },
       },
       legend: {
         data: this.labels,
         textStyle: {
-          color: this.echarts.textColor
-        }
+          color: this.echarts.textColor,
+        },
       },
       grid: {
         left: '3%',
         right: '4%',
         bottom: '3%',
-        containLabel: true
+        containLabel: true,
       },
       xAxis: [
         {
@@ -71,43 +71,42 @@ export class StatsAreaStackComponent implements AfterViewInit, OnDestroy, OnChan
           boundaryGap: false,
           data: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
           axisTick: {
-            alignWithLabel: true
+            alignWithLabel: true,
           },
           axisLine: {
             lineStyle: {
-              color: this.echarts.axisLineColor
-            }
+              color: this.echarts.axisLineColor,
+            },
           },
           axisLabel: {
             textStyle: {
-              color: this.echarts.textColor
-            }
-          }
-        }
+              color: this.echarts.textColor,
+            },
+          },
+        },
       ],
       yAxis: [
         {
           type: 'value',
           axisLine: {
             lineStyle: {
-              color: this.echarts.axisLineColor
-            }
+              color: this.echarts.axisLineColor,
+            },
           },
           splitLine: {
             lineStyle: {
-              color: this.echarts.splitLineColor
-            }
+              color: this.echarts.splitLineColor,
+            },
           },
           axisLabel: {
             textStyle: {
-              color: this.echarts.textColor
-            }
-          }
-        }
+              color: this.echarts.textColor,
+            },
+          },
+        },
       ],
-      series: this.data
+      series: this.data,
     };
-    console.log(this.options);
   }
 }
 

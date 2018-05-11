@@ -37,7 +37,8 @@ export class StatsComponent implements OnInit, OnDestroy {
         this.pieLabels = data.map(stat => stat.name);
       });
 
-    this.current_areastack_data_subscription = this.statsService.getWeekdaysHourlyUsageInInterval(new StatsInterval(new Date(0), new Date()))
+    this.current_areastack_data_subscription = this.statsService
+      .getWeekdaysHourlyUsageInInterval(new StatsInterval(new Date(0), new Date()))
       .subscribe(data => {
         this.areaStackData = data.map(machineData => new AreaStackData(machineData.name, machineData.dataPoints));
         this.areaStackLabels = data.map(machineData => machineData.name);
@@ -52,8 +53,9 @@ export class StatsComponent implements OnInit, OnDestroy {
 
   getPieStatsForNewInterval(): void {
     this.current_pie_data_subscription.unsubscribe();
-    if(this.pieInterval) {
-      this.current_pie_data_subscription = this.statsService.getHoursUsageInInterval(new StatsInterval(this.pieInterval[0], this.pieInterval[1]))
+    if (this.pieInterval) {
+      this.current_pie_data_subscription = this.statsService
+        .getHoursUsageInInterval(new StatsInterval(this.pieInterval[0], this.pieInterval[1]))
         .subscribe(data => {
           this.pieData = data;
           this.pieLabels = data.map(stat => stat.name);
@@ -63,8 +65,9 @@ export class StatsComponent implements OnInit, OnDestroy {
 
   getAreaStackStatsForNewInterval(): void {
     this.current_areastack_data_subscription.unsubscribe();
-    if(this.areaStackInterval) {
-      this.current_areastack_data_subscription = this.statsService.getWeekdaysHourlyUsageInInterval(new StatsInterval(this.areaStackInterval[0],this.areaStackInterval[1]))
+    if (this.areaStackInterval) {
+      this.current_areastack_data_subscription = this.statsService
+        .getWeekdaysHourlyUsageInInterval(new StatsInterval(this.areaStackInterval[0], this.areaStackInterval[1]))
         .subscribe(data => {
           this.areaStackData = data.map(machineData => new AreaStackData(machineData.name, machineData.dataPoints));
           this.areaStackLabels = data.map(machineData => machineData.name);
@@ -74,8 +77,10 @@ export class StatsComponent implements OnInit, OnDestroy {
 
   getBasiLinesMonthlyStatsForNewInterval(): void {
     this.current_basiclines_data_subscription.unsubscribe();
-    if(this.basicLinesInterval) {
-        this.current_basiclines_data_subscription = this.statsService.getMonthsHourlyUsageInInterval(new StatsInterval(moment(this.basicLinesInterval[0]).toDate(), moment(this.basicLinesInterval[1]).toDate()))
+    if (this.basicLinesInterval) {
+        this.current_basiclines_data_subscription = this.statsService
+          .getMonthsHourlyUsageInInterval
+          (new StatsInterval(moment(this.basicLinesInterval[0]).toDate(), moment(this.basicLinesInterval[1]).toDate()))
           .subscribe(data => {
             this.basicLinesData = data.map(machineData => new BasicLinesData(machineData.name, machineData.dataPoints));
             this.basicLinesLabels = data.map(machineData => machineData.name);

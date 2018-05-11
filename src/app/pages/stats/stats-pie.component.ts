@@ -1,15 +1,14 @@
 import { AfterViewInit, Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
-import { StatsService } from '../../services/stats/stats.service';
 import { NbJSThemeVariable } from '@nebular/theme/services/js-themes/theme.options';
 
 @Component({
   selector: 'ngx-echarts-pie',
   template: `
     <div echarts [options]="options" class="echart"></div>
-  `
+  `,
 })
-export class StatsPieComponent implements AfterViewInit, OnDestroy {
+export class StatsPieComponent implements AfterViewInit, OnDestroy, OnChanges {
   options: any = {};
   themeSubscription: any;
 
@@ -22,11 +21,11 @@ export class StatsPieComponent implements AfterViewInit, OnDestroy {
   private colors: NbJSThemeVariable | undefined;
   private echarts: any;
 
-  constructor(private theme: NbThemeService, private statsService: StatsService) {
+  constructor(private theme: NbThemeService) {
   }
 
   ngOnChanges() {
-    if(this.colors && this.data && this.echarts && this.labels) {
+    if (this.colors && this.data && this.echarts && this.labels) {
       this.setOptions();
     }
   }
@@ -50,15 +49,15 @@ export class StatsPieComponent implements AfterViewInit, OnDestroy {
       color: [this.colors.warningLight, this.colors.infoLight, this.colors.dangerLight, this.colors.successLight, this.colors.primaryLight],
       tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b} : {c} ({d}%)'
+        formatter: '{a} <br/>{b} : {c} ({d}%)',
       },
       legend: {
         orient: 'vertical',
         left: 'left',
         data: this.labels,
         textStyle: {
-          color: this.echarts.textColor
-        }
+          color: this.echarts.textColor,
+        },
       },
       series: [
         {
@@ -71,25 +70,25 @@ export class StatsPieComponent implements AfterViewInit, OnDestroy {
             emphasis: {
               shadowBlur: 10,
               shadowOffsetX: 0,
-              shadowColor: this.echarts.itemHoverShadowColor
-            }
+              shadowColor: this.echarts.itemHoverShadowColor,
+            },
           },
           label: {
             normal: {
               textStyle: {
-                color: this.echarts.textColor
-              }
-            }
+                color: this.echarts.textColor,
+              },
+            },
           },
           labelLine: {
             normal: {
               lineStyle: {
-                color: this.echarts.axisLineColor
-              }
-            }
-          }
-        }
-      ]
+                color: this.echarts.axisLineColor,
+              },
+            },
+          },
+        },
+      ],
     };
   }
 }
