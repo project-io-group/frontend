@@ -1,100 +1,95 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
-import { StatsInterval, StatsService } from '../../services/stats/stats.service';
-import { Subscription } from 'rxjs/Subscription';
+import { StatsService } from '../../services/stats/stats.service';
+import { NbJSThemeVariable } from '@nebular/theme/services/js-themes/theme.options';
 
 @Component({
   selector: 'ngx-echarts-pie',
   template: `
     <div echarts [options]="options" class="echart"></div>
-  `,
+  `
 })
 export class StatsPieComponent implements AfterViewInit, OnDestroy {
   options: any = {};
   themeSubscription: any;
 
+  @Input()
   data: any;
+
+  @Input()
   labels: any;
-  current_data_subscription: Subscription;
+
+  private colors: NbJSThemeVariable | undefined;
+  private echarts: any;
 
   constructor(private theme: NbThemeService, private statsService: StatsService) {
-    //TODO: Get real data
-    this.current_data_subscription = this.statsService.getHoursUsageInInterval(new StatsInterval('02-02-2018', '03-03-2019'))
-      .subscribe(data => {
-        this.data = data;
-        this.labels = data.map(stat => stat.name);
-    })
+  }
+
+  ngOnChanges() {
+    if(this.colors && this.data && this.echarts && this.labels) {
+      this.setOptions();
+    }
   }
 
   ngAfterViewInit() {
     this.themeSubscription = this.theme.getJsTheme().subscribe(config => {
-
-      const colors = config.variables;
-      const echarts: any = config.variables.echarts;
-
-
-      this.options = {
-        backgroundColor: echarts.bg,
-        color: [colors.warningLight, colors.infoLight, colors.dangerLight, colors.successLight, colors.primaryLight],
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)',
-        },
-        legend: {
-          orient: 'vertical',
-          left: 'left',
-          data: this.labels,
-          textStyle: {
-            color: echarts.textColor,
-          },
-        },
-        series: [
-          {
-            name: 'Countries',
-            type: 'pie',
-            radius: '80%',
-            center: ['50%', '50%'],
-            data: this.data,
-            itemStyle: {
-              emphasis: {
-                shadowBlur: 10,
-                shadowOffsetX: 0,
-                shadowColor: echarts.itemHoverShadowColor,
-              },
-            },
-            label: {
-              normal: {
-                textStyle: {
-                  color: echarts.textColor,
-                },
-              },
-            },
-            labelLine: {
-              normal: {
-                lineStyle: {
-                  color: echarts.axisLineColor,
-                },
-              },
-            },
-          },
-        ],
-      };
+      this.colors = config.variables;
+      this.echarts = config.variables.echarts;
+      this.setOptions();
     });
-  }
-
-
-  //TODO: This should be called when interval submit button changes
-  getStatsForNewInterval(): void {
-    this.current_data_subscription.unsubscribe();
-    this.current_data_subscription = this.statsService.getHoursUsageInInterval(new StatsInterval('newDatefrom', 'newDateTo'))
-      .subscribe(data => {
-        this.data = data;
-        this.labels = data.map(stat => stat.name);
-      })
   }
 
   ngOnDestroy(): void {
     this.themeSubscription.unsubscribe();
-    this.current_data_subscription.unsubscribe();
+  }
+
+
+  private setOptions() {
+    this.options = {
+      backgroundColor: this.echarts.bg,
+      color: [this.colors.warningLight, this.colors.infoLight, this.colors.dangerLight, this.colors.successLight, this.colors.primaryLight],
+      tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
+      },
+      legend: {
+        orient: 'vertical',
+        left: 'left',
+        data: this.labels,
+        textStyle: {
+          color: this.echarts.textColor
+        }
+      },
+      series: [
+        {
+          name: 'Countries',
+          type: 'pie',
+          radius: '65%',
+          center: ['50%', '50%'],
+          data: this.data,
+          itemStyle: {
+            emphasis: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: this.echarts.itemHoverShadowColor
+            }
+          },
+          label: {
+            normal: {
+              textStyle: {
+                color: this.echarts.textColor
+              }
+            }
+          },
+          labelLine: {
+            normal: {
+              lineStyle: {
+                color: this.echarts.axisLineColor
+              }
+            }
+          }
+        }
+      ]
+    };
   }
 }

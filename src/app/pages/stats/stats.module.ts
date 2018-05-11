@@ -7,9 +7,9 @@ import { Ng2CompleterModule } from 'ng2-completer';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { StatsComponent } from './stats.component';
 import { StatsAreaStackComponent } from './stats-area-stack.component';
-import { StatsMultipleXaxisComponent } from './stats-multiple-xaxis.component';
 import { StatsPieComponent } from './stats-pie.component';
 import { StatsRadarComponent } from './stats-radar.component';
+import { StatsBasicLinesComponent } from './stats-basic-lines.component';
 
 
 @NgModule({
@@ -23,7 +23,7 @@ import { StatsRadarComponent } from './stats-radar.component';
   ],
   declarations: [
     StatsAreaStackComponent,
-    StatsMultipleXaxisComponent,
+    StatsBasicLinesComponent,
     StatsPieComponent,
     StatsRadarComponent,
     StatsComponent,
