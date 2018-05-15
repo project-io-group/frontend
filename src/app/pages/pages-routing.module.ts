@@ -6,6 +6,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MachinesListComponent } from './machines/machines.list.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { StatsComponent } from './stats/stats.component';
+import { MailComponent } from "./mail/mail.component";
 
 const routes: Routes = [{
   path: '',
@@ -26,6 +27,10 @@ const routes: Routes = [{
     {
       path: 'stats',
       component: StatsComponent,
+    },
+    {
+      path: 'email',
+      component: MailComponent,
     },
     {
       path: '',

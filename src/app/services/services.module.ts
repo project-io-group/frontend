@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReservationService } from './reservation_service/reservationService';
 import { AlertService } from './UI_tools/alertService';
 import { StatsService } from './stats/stats.service';
+import { MailService } from "./mail.service";
 
 const OWN_PROVIDERS = [
   BackendServicesProxy,
@@ -12,6 +13,7 @@ const OWN_PROVIDERS = [
   ReservationService,
   AlertService,
   StatsService,
+  MailService,
 ];
 
 const OWN_COMPONENTS = [];
