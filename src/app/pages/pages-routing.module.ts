@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MachinesListComponent } from './machines/machines.list.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 const routes: Routes = [{
   path: '',
@@ -16,6 +17,10 @@ const routes: Routes = [{
     {
       path: 'virtual-machines',
       component: MachinesListComponent,
+    },
+    {
+      path: 'reservation',
+      component: ReservationComponent,
     },
     {
       path: '',
