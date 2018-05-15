@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {Mail, MailService} from "../../services/mail.service";
+import {Mail, MailService} from '../../services/mail.service';
 
 @Component({
-  selector: 'mail-form',
+  selector: 'ngx-mail-form',
   templateUrl: './mail-form.component.html',
 })
 export class MailFormComponent {
@@ -13,7 +13,7 @@ export class MailFormComponent {
 
   constructor(private mailService: MailService) {
 
-    this.model = new Mail("", "", "");
+    this.model = new Mail('', '', '');
 
     mailService.getPossibleSubjects().subscribe(subjects => {
       this.subjects = subjects;

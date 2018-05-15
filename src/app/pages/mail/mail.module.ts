@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 
 import {ThemeModule} from '../../@theme/theme.module';
-import {MailFormComponent} from "./mail-form.component";
-import {MailComponent} from "./mail.component";
+import {MailFormComponent} from './mail-form.component';
+import {MailComponent} from './mail.component';
 
 
 @NgModule({
