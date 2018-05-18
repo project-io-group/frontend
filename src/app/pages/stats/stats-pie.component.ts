@@ -46,7 +46,9 @@ export class StatsPieComponent implements AfterViewInit, OnDestroy, OnChanges {
   private setOptions() {
     this.options = {
       backgroundColor: this.echarts.bg,
-      color: [this.colors.warningLight, this.colors.infoLight, this.colors.dangerLight, this.colors.successLight, this.colors.primaryLight],
+      color: [this.colors.warningLight, this.colors.success, this.colors.infoLight,
+        this.colors.dangerLight, this.colors.info, this.colors.primary, this.colors.successLight,
+        this.colors.warning, this.colors.primaryLight, this.colors.danger],
       tooltip: {
         trigger: 'item',
         formatter: '{a} <br/>{b} : {c} ({d}%)',
@@ -63,8 +65,8 @@ export class StatsPieComponent implements AfterViewInit, OnDestroy, OnChanges {
         {
           name: 'Countries',
           type: 'pie',
-          radius: '65%',
-          center: ['50%', '50%'],
+          radius: '40%',
+          center: ['70%', '50%'],
           data: this.data,
           itemStyle: {
             emphasis: {
