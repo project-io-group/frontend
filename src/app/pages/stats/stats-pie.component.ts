@@ -63,10 +63,9 @@ export class StatsPieComponent implements AfterViewInit, OnDestroy, OnChanges {
       },
       series: [
         {
-          name: 'Countries',
           type: 'pie',
           radius: '40%',
-          center: ['70%', '50%'],
+          center: ['65%', '50%'],
           data: this.data,
           itemStyle: {
             emphasis: {
