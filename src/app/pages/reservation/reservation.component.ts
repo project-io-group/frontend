@@ -98,8 +98,8 @@ export class ReservationComponent {
         });
       }
       const all_dates = new Set<string>(values.dates.map(date => moment(date).format('YYYY-MM-DD')).concat(interval_dates));
-      const start_time = moment(values.timings.startTime).format('HH:MM');
-      const end_time = moment(values.timings.endTime).format('HH:MM');
+      const start_time = moment(values.timings.startTime).format('HH:mm');
+      const end_time = moment(values.timings.endTime).format('HH:mm');
 
       this.reservationService.requestReservation(new ReservationRequestDto(
         1, // TODO: UserService.getCurrentUser()
