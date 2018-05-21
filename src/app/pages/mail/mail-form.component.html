@@ -2,20 +2,6 @@
       (ngSubmit)="onSubmit()">
 
   <div class="form-group">
-    <label for="recipient">Recipient</label>
-    <select class="form-control" id="recipient"
-            required
-            [(ngModel)]="model.recipient" name="recipient"
-            #recipient="ngModel">
-      <option *ngFor="let recipient of recipients" [value]="recipient">{{recipient}}</option>
-    </select>
-    <div [hidden]="recipient.valid || recipient.pristine"
-         class="alert alert-danger">
-      Recipient cannot be empty
-    </div>
-  </div>
-
-  <div class="form-group">
     <label for="subject">Subject</label>
     <select class="form-control" id="subject"
             required

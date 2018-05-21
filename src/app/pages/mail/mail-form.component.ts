@@ -8,24 +8,16 @@ import {Mail, MailService} from '../../services/mail.service';
 export class MailFormComponent {
 
   protected subjects: string[];
-  protected recipients: string[];
   private readonly model: Mail;
 
   constructor(private mailService: MailService) {
 
-    this.model = new Mail('', '', '');
+    this.model = new Mail('', '');
 
     mailService.getPossibleSubjects().subscribe(subjects => {
       this.subjects = subjects;
       if (subjects.length > 0) {
         this.model.subject = subjects[0]
-      }
-    });
-
-    mailService.getPossibleRecipients().subscribe(recipients => {
-      this.recipients = recipients;
-      if (recipients.length > 0) {
-        this.model.recipient = recipients[0]
       }
     });
 

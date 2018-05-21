@@ -9,10 +9,6 @@ export class MailService {
   constructor(private backendServicesProxy: BackendServicesProxy, private http: HttpClient) {
   }
 
-  getPossibleRecipients(): Observable<string[]> {
-    return Observable.of(['devteam'])
-  }
-
   getPossibleSubjects(): Observable<string[]> {
     return Observable.of(['test'])
   }
@@ -21,7 +17,6 @@ export class MailService {
     const emailRequest = this.backendServicesProxy.createRequestURL('/email');
     return this.http.post(emailRequest, '', {
       params: new HttpParams()
-        .append('recipient', mail.recipient)
         .append('subject', mail.subject)
         .append('content', mail.message),
     });
@@ -31,7 +26,6 @@ export class MailService {
 
 export class Mail {
   constructor(
-    public recipient: string,
     public subject: string,
     public message: string,
   ) {
