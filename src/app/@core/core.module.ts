@@ -20,18 +20,15 @@ const NB_CORE_PROVIDERS = [
           delay: 3000,
           baseEndpoint: AppConfig.API_ENDPOINT,
           token: {
-            key: 'token',
+            key: 'token', // this parameter tells Nebular where to look for the token
           },
           login: {
-            rememberMe: true,
             endpoint: '/login',
             method: 'post',
           },
           register: {
-            rememberMe: false,
             endpoint: '/sign-up',
             method: 'post',
-            username: '',
           },
         },
       },

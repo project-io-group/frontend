@@ -1,37 +1,26 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
 import 'rxjs/add/observable/of';
+import {NbAuthJWTToken, NbAuthService} from '@nebular/auth';
+import {BehaviorSubject, Observable} from '@angular/cli/node_modules/rxjs';
 
-let counter = 0;
 
 @Injectable()
 export class UserService {
 
-  private users = {
-    nick: { name: 'Nick Jones', picture: 'assets/images/nick.png' },
-    eva: { name: 'Eva Moor', picture: 'assets/images/eva.png' },
-    jack: { name: 'Jack Williams', picture: 'assets/images/jack.png' },
-    lee: { name: 'Lee Wong', picture: 'assets/images/lee.png' },
-    alan: { name: 'Alan Thompson', picture: 'assets/images/alan.png' },
-    kate: { name: 'Kate Martinez', picture: 'assets/images/kate.png' },
-  };
+  private _currentUser: BehaviorSubject<any>;
 
-  private userArray: any[];
+  constructor(private authService: NbAuthService) {
+    this._currentUser = new BehaviorSubject<any>('');
+    this.authService.onTokenChange()
+      .subscribe((token: NbAuthJWTToken) => {
 
-  constructor() {
-    // this.userArray = Object.values(this.users);
+        if (token.isValid()) {
+          this._currentUser.next(token.getPayload().sub); // here we receive a payload from the token and assigne it to our `user` variable
+        }
+      });
   }
 
-  getUsers(): Observable<any> {
-    return Observable.of(this.users);
-  }
-
-  getUserArray(): Observable<any[]> {
-    return Observable.of(this.userArray);
-  }
-
-  getUser(): Observable<any> {
-    counter = (counter + 1) % this.userArray.length;
-    return Observable.of(this.userArray[counter]);
+  get currentUser(): Observable<any> {
+    return this._currentUser.asObservable();
   }
 }
