@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {LocalDataSource} from 'ng2-smart-table';
 import {ReservationService} from '../../services/reservation_service/reservation_service';
 import {ReservationRow} from './reservation_row';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'ngx-reservation-list',
@@ -13,10 +14,17 @@ import {ReservationRow} from './reservation_row';
   `],
 })
 export class ReservationsListComponent {
-  static USER_PLACEHOLDER = -1;
+  static USER_PLACEHOLDER = 3;
   source: LocalDataSource = new LocalDataSource();
   settings = {
-    actions: false,
+    actions: {
+      add: false,
+      edit: false,
+    },
+    delete: {
+      deleteButtonContent: '<i class="nb-trash"></i>',
+      confirmDelete: true,
+    },
     columns: {
       id: {
         title: 'ID',
@@ -53,6 +61,7 @@ export class ReservationsListComponent {
     },
   };
   private data: ReservationRow[];
+  private _reservationService: ReservationService;
 
   constructor(reservationService: ReservationService) {
     reservationService.getReservationsForUser(ReservationsListComponent.USER_PLACEHOLDER).subscribe(reservations => {
@@ -68,10 +77,32 @@ export class ReservationsListComponent {
             r.startTime,
             r.endTime,
             d,
-          ))).reduce((previousValue, currentValue) => previousValue.concat(currentValue), []);
+          )
+        )
+      ).reduce((previousValue, currentValue) => previousValue.concat(currentValue), []);
 
       this.source.load(this.data);
 
     })
+    this._reservationService = reservationService;
+  }
+
+  deleteRecord(event): void {
+    if (window.confirm('Are you sure you want to delete?')) {
+      this._reservationService.deleteReservation(event.data.id).subscribe(
+        res => {
+          console.log(res);
+          event.confirm.resolve(event.source.data);
+        },
+        (err: HttpErrorResponse) => {
+          if (err.error instanceof Error) {
+            console.log('Client-side error occured.');
+          } else {
+            console.log('Server-side error occured.');
+          }
+        });
+    } else {
+      event.confirm.reject();
+    }
   }
 }

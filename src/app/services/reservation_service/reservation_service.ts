@@ -7,12 +7,14 @@ import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class ReservationService {
-
   constructor(private backendServicesProxy: BackendServicesProxy, private http: HttpClient) {
   }
 
   getReservationsForUser(userId: number): Observable<Reservation[]> {
     return this.http.get<Reservation[]>(
-      this.backendServicesProxy.createRequestURL('/reservations?userId=' + userId))
+      this.backendServicesProxy.createRequestURL('/reservations?userId=' + userId));
+  }
+  deleteReservation(reservationId: number): Observable<any> {
+    return this.http.delete(this.backendServicesProxy.createRequestURL('/reservation/cancel') + '?reservationId=' + reservationId);
   }
 }
