@@ -3,8 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { BackendServicesProxy } from '../remote/backend.services.proxy';
 import { HttpClient } from '@angular/common/http';
-import moment = require('moment');
 import { AppConfig } from '../../app.config';
+
+const moment = require('moment');
 
 @Injectable()
 export class StatsService {

@@ -8,7 +8,7 @@ import {
   ReservationRequestDto, ReservationService,
 } from '../../services/reservation_service/reservationService';
 import { AlertService } from '../../services/UI_tools/alertService';
-import moment = require('moment');
+const moment = require('moment');
 
 @Component({
   selector: 'ngx-reservation-component',
@@ -17,17 +17,17 @@ import moment = require('moment');
 })
 
 export class ReservationComponent {
-  private form: FormGroup;
+  form: FormGroup;
 
-  private vmPoolCompleterData: CompleterData;
-  private vmPools: VMPool[];
+  vmPoolCompleterData: CompleterData;
+  vmPools: VMPool[];
 
-  private dates;
+  dates;
 
-  private timings: FormGroup;
+  timings: FormGroup;
 
-  private completerTouched: boolean = false;
-  private endDateIsLast: boolean = true;
+  completerTouched: boolean = false;
+  endDateIsLast: boolean = true;
 
   touchCompleter(): void {
     this.completerTouched = true;
@@ -78,9 +78,7 @@ export class ReservationComponent {
 
     this.timings.controls['startTime'].valueChanges.subscribe(startDate => {
       this.timings.controls['endTime'].setValue(moment(startDate).add('1', 'h').add('30', 'm').toDate());
-    })
-
-
+    });
   }
 
   onSubmit(values) {
@@ -165,6 +163,10 @@ export class ReservationComponent {
   addDate(): void {
     this.dates = this.form.get('dates') as FormArray;
     this.dates.push(this.createDate());
+  }
+
+  getDates() {
+    return this.form.get('dates')['controls'];
   }
 }
 
