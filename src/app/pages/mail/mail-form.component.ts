@@ -26,5 +26,4 @@ export class MailFormComponent {
   onSubmit(): void {
     this.mailService.sendMail(this.model).subscribe()
   }
-
 }
