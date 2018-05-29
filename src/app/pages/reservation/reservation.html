@@ -85,7 +85,6 @@
       </div>
 
 
-      <!--<div formArrayName="dates" *ngFor="let date of form.get('dates').controls; let i = index;">-->
       <div formArrayName="dates" *ngFor="let date of getDates(); let i = index;">
         <div class="row">
           <div class="form-group input-wrapper col-md-6">
@@ -115,7 +114,6 @@
 
       <div class="col-sm-4" style="margin: 15px">
         <nb-checkbox [formControl]="form.controls['cyclic']">Cyclic Reservation</nb-checkbox>
-          <!--*ngIf="form.controls['cyclic'].value"-->
         <div
           *ngIf="form.controls['cyclic'].value && getDates().length > 1"
           class="text-warning" style="margin-top: 4px">Note, that reservations will repeat
