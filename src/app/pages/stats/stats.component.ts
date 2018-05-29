@@ -3,7 +3,8 @@ import { StatsInterval, StatsService } from '../../services/stats/stats.service'
 import { Subscription } from 'rxjs/Subscription';
 import { AreaStackData } from './stats-area-stack.component';
 import { BasicLinesData } from './stats-basic-lines.component';
-import moment = require('moment');
+
+const moment = require('moment');
 
 @Component({
   selector: 'ngx-echarts',
@@ -12,26 +13,26 @@ import moment = require('moment');
 })
 export class StatsComponent implements OnInit, OnDestroy {
 
-  private pieData: any;
-  private pieLabels: string[];
-  private current_pie_data_subscription: Subscription;
-  private pieInterval: any;
-  private pieShowUnused: boolean = true;
-  private pieIncludeDisabled: boolean = false;
+  pieData: any;
+  pieLabels: string[];
+  current_pie_data_subscription: Subscription;
+  pieInterval: any;
+  pieShowUnused: boolean = true;
+  pieIncludeDisabled: boolean = false;
 
-  private current_areastack_data_subscription: Subscription;
-  private areaStackData: any[];
-  private areaStackLabels: string[];
-  private areaStackInterval: any;
-  private areaShowUnused: boolean = true;
-  private areaIncludeDisabled: boolean = false;
+  current_areastack_data_subscription: Subscription;
+  areaStackData: any[];
+  areaStackLabels: string[];
+  areaStackInterval: any;
+  areaShowUnused: boolean = true;
+  areaIncludeDisabled: boolean = false;
 
-  private current_basiclines_data_subscription: Subscription;
-  private basicLinesInterval: any[] = Array(2);
-  private basicLinesData: BasicLinesData[];
-  private basicLinesLabels: string[];
-  private basicLinesShowUnused: boolean = true;
-  private basicLinesIncludeDisabled: boolean = false;
+  current_basiclines_data_subscription: Subscription;
+  basicLinesInterval: any[] = Array(2);
+  basicLinesData: BasicLinesData[];
+  basicLinesLabels: string[];
+  basicLinesShowUnused: boolean = true;
+  basicLinesIncludeDisabled: boolean = false;
 
 
   constructor(private statsService: StatsService) {
