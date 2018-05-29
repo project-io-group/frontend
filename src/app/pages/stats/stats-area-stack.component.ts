@@ -72,7 +72,7 @@ export class StatsAreaStackComponent implements AfterViewInit, OnDestroy, OnChan
         {
           type: 'category',
           boundaryGap: false,
-          data: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+          data: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
           axisTick: {
             alignWithLabel: true,
           },
