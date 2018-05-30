@@ -6,6 +6,7 @@ import { FormValidationModule } from 'ngx-form-validation';
 import { FormsModule } from '@angular/forms';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { EmailWidgetModule } from './email-widget/email.widget.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     Ng2CompleterModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    EmailWidgetModule,
   ],
   declarations: [
     ReservationComponent,

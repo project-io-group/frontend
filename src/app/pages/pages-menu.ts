@@ -24,12 +24,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/stats',
   },
   {
-    title: 'Contact Admin',
-    icon: 'nb-email',
-    link: '/pages/email',
-    home: true,
-  },
-  {
     title: 'FEATURES',
     group: true,
   },
