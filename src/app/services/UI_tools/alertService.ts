@@ -26,7 +26,7 @@ export class AlertService {
     return activeModal;
   }
 
-  public newSmallEmailModal(subject: string) {
+  public newEmailModal(subject: string) {
     const activeModal = this.modalService.open(EmailModalComponent, {size: 'lg', container: 'nb-layout'});
     activeModal.componentInstance.subject = subject;
     return activeModal;

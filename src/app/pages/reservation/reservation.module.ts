@@ -6,7 +6,7 @@ import { FormValidationModule } from 'ngx-form-validation';
 import { FormsModule } from '@angular/forms';
 import { Ng2CompleterModule } from 'ng2-completer';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import { EmailWidgetModule } from './email-widget/email.widget.module';
+import { EmailWidgetModule } from '../email-widget/email.widget.module';
 
 
 @NgModule({
