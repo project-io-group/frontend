@@ -8,7 +8,7 @@ import {
   ReservationRequestDto, ReservationService,
 } from '../../services/reservation_service/reservationService';
 import { AlertService } from '../../services/UI_tools/alertService';
-import moment = require('moment');
+const moment = require('moment');
 
 
 class TimingsValidator {
@@ -33,17 +33,17 @@ class TimingsValidator {
 })
 
 export class ReservationComponent {
-  private form: FormGroup;
+  form: FormGroup;
 
-  private vmPoolCompleterData: CompleterData;
-  private vmPools: VMPool[];
+  vmPoolCompleterData: CompleterData;
+  vmPools: VMPool[];
 
-  private dates;
+  dates;
 
-  private timings: FormGroup;
+  timings: FormGroup;
 
-  private completerTouched: boolean = false;
-  private endDateIsLast: boolean = true;
+  completerTouched: boolean = false;
+  endDateIsLast: boolean = true;
 
   touchCompleter(): void {
     this.completerTouched = true;
@@ -94,9 +94,7 @@ export class ReservationComponent {
 
     this.timings.controls['startTime'].valueChanges.subscribe(startDate => {
       this.timings.controls['endTime'].setValue(moment(startDate).add('1', 'h').add('30', 'm').toDate());
-    })
-
-
+    });
   }
 
   onSubmit(values) {
@@ -114,8 +112,8 @@ export class ReservationComponent {
         });
       }
       const all_dates = new Set<string>(values.dates.map(date => moment(date).format('YYYY-MM-DD')).concat(interval_dates));
-      const start_time = moment(values.startTime).format('HH:MM');
-      const end_time = moment(values.endTime).format('HH:MM');
+      const start_time = moment(values.timings.startTime).format('HH:mm');
+      const end_time = moment(values.timings.endTime).format('HH:mm');
 
       this.reservationService.requestReservation(new ReservationRequestDto(
         1, // TODO: UserService.getCurrentUser()
@@ -181,5 +179,9 @@ export class ReservationComponent {
   addDate(): void {
     this.dates = this.form.get('dates') as FormArray;
     this.dates.push(this.createDate());
+  }
+
+  getDates() {
+    return this.form.get('dates')['controls'];
   }
 }

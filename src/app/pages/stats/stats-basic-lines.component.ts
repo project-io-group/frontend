@@ -40,7 +40,9 @@ export class StatsBasicLinesComponent implements AfterViewInit, OnDestroy, OnCha
   private setOptions() {
     this.options = {
       ackgroundColor: echarts.bg,
-      color: [this.colors.warningLight, this.colors.infoLight, this.colors.dangerLight, this.colors.successLight, this.colors.primaryLight],
+      color: [this.colors.warningLight, this.colors.success, this.colors.infoLight,
+        this.colors.dangerLight, this.colors.info, this.colors.primary, this.colors.successLight,
+        this.colors.warning, this.colors.primaryLight, this.colors.danger],
       tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -60,6 +62,7 @@ export class StatsBasicLinesComponent implements AfterViewInit, OnDestroy, OnCha
         left: '3%',
         right: '4%',
         bottom: '3%',
+        top: '40%',
         containLabel: true,
       },
       xAxis: {

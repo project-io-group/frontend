@@ -3,8 +3,9 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { BackendServicesProxy } from '../remote/backend.services.proxy';
 import { HttpClient } from '@angular/common/http';
-import moment = require('moment');
 import { AppConfig } from '../../app.config';
+
+const moment = require('moment');
 
 @Injectable()
 export class StatsService {
@@ -12,17 +13,20 @@ export class StatsService {
   constructor(private backendServicesProxy: BackendServicesProxy, private http: HttpClient) {
   }
 
-  getHoursUsageInInterval(interval: StatsInterval): Observable<StatsDataPoint[]> {
-    return this.http.get<any[]>(this.backendServicesProxy.createRequestURL('/stats/hourly?' + interval.getAsQueryParams()))
+  getHoursUsageInInterval(interval: StatsInterval, includeDisabled: boolean): Observable<StatsDataPoint[]> {
+    return this.http.get<any[]>(this.backendServicesProxy
+      .createRequestURL('/stats/hourly?' + interval.getAsQueryParams() + '&includeDisabled=' + includeDisabled))
   }
 
-  getWeekdaysHourlyUsageInInterval(interval: StatsInterval): Observable<StatsDataPoints[]> {
-    return this.http.get<StatsDataPoints[]>(this.backendServicesProxy.createRequestURL('/stats/weekdays?' + interval.getAsQueryParams()))
+  getWeekdaysHourlyUsageInInterval(interval: StatsInterval, includeDisabled: boolean): Observable<StatsDataPoints[]> {
+    return this.http.get<StatsDataPoints[]>(this.backendServicesProxy
+      .createRequestURL('/stats/weekdays?' + interval.getAsQueryParams() + '&includeDisabled=' + includeDisabled))
   }
 
 
-  getMonthsHourlyUsageInInterval(interval: StatsInterval): Observable<StatsDataPoints[]> {
-    return this.http.get<StatsDataPoints[]>(this.backendServicesProxy.createRequestURL('/stats/monthly?' + interval.getAsQueryParams()));
+  getMonthsHourlyUsageInInterval(interval: StatsInterval, includeDisabled: boolean): Observable<StatsDataPoints[]> {
+    return this.http.get<StatsDataPoints[]>(this.backendServicesProxy
+      .createRequestURL('/stats/monthly?' + interval.getAsQueryParams() + '&includeDisabled=' + includeDisabled));
   }
 }
 

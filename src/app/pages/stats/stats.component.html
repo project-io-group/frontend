@@ -1,8 +1,12 @@
 <div class="row">
-  <div class="col-lg-6">
+  <div class="col-lg-12">
     <nb-card>
       <nb-card-header>Machines Usage Overall</nb-card-header>
       <nb-card-body>
+        <div class="row">
+          <nb-checkbox status="warning" [(ngModel)]="pieIncludeDisabled" class="col-sm-4">Include disabled Machines</nb-checkbox>
+          <nb-checkbox status="warning" [(ngModel)]="pieShowUnused" class="col-sm-4">Show unused</nb-checkbox>
+        </div>
         <div class="row">
           <div class="col-sm-8 interval-picker">
             <input placeholder="Range" class="form-control" [owlDateTimeTrigger]="dt10"
@@ -20,10 +24,14 @@
     </nb-card>
   </div>
 
-  <div class="col-lg-6">
+  <div class="col-lg-12">
     <nb-card>
       <nb-card-header>Machines Usage by weekday</nb-card-header>
       <nb-card-body>
+        <div class="row">
+          <nb-checkbox status="warning" [(ngModel)]="areaIncludeDisabled" class="col-sm-4">Include disabled Machines</nb-checkbox>
+          <nb-checkbox status="warning" [(ngModel)]="areaShowUnused" class="col-sm-4">Show unused</nb-checkbox>
+        </div>
         <div class="row">
           <div class="col-sm-8 interval-picker">
             <input placeholder="Range" class="form-control" [owlDateTimeTrigger]="dt2"
@@ -40,10 +48,14 @@
     </nb-card>
   </div>
 
-  <div class="col-lg-6">
+  <div class="col-lg-12">
     <nb-card>
       <nb-card-header>Monthly Usage</nb-card-header>
       <nb-card-body>
+        <div class="row">
+          <nb-checkbox status="warning" [(ngModel)]="basicLinesIncludeDisabled" class="col-sm-4">Include disabled Machines</nb-checkbox>
+          <nb-checkbox status="warning" [(ngModel)]="basicLinesShowUnused" class="col-sm-4">Show unused</nb-checkbox>
+        </div>
         <div class="row interval-picker">
           <div class="col-sm-8">
             <div class="row">
