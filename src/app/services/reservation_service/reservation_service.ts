@@ -14,7 +14,7 @@ export class ReservationService {
     return this.http.get<Reservation[]>(
       this.backendServicesProxy.createRequestURL('/reservations?userId=' + userId));
   }
-  deleteReservation(reservationId: number): Observable<any> {
-    return this.http.delete(this.backendServicesProxy.createRequestURL('/reservation/cancel') + '?reservationId=' + reservationId);
+  deleteReservation(reservationId: number, date: string): Observable<any> {
+    return this.http.delete(this.backendServicesProxy.createRequestURL('/reservation/dates') + '?reservationId=' + reservationId + '&cancelledDates=' + date);
   }
 }

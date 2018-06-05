@@ -2,6 +2,8 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmModalComponent } from './components/modal/confirm.modal.component';
+import { AcknowledgeModalComponent } from './components/modal/acknowledge.modal.component';
 
 import {
   NbActionsModule,
@@ -67,6 +69,8 @@ const COMPONENTS = [
   SampleLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  ConfirmModalComponent,
+  AcknowledgeModalComponent,
 ];
 
 const PIPES = [
@@ -91,6 +95,7 @@ const NB_THEME_PROVIDERS = [
   imports: [...BASE_MODULES, ...NB_MODULES],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
   declarations: [...COMPONENTS, ...PIPES],
+  entryComponents: [ConfirmModalComponent, AcknowledgeModalComponent],
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {

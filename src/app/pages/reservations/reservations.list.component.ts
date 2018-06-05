@@ -3,6 +3,7 @@ import {LocalDataSource} from 'ng2-smart-table';
 import {ReservationService} from '../../services/reservation_service/reservation_service';
 import {ReservationRow} from './reservation_row';
 import {HttpErrorResponse} from '@angular/common/http';
+import { AlertService } from '../../services/UI_tools/alertService';
 
 @Component({
   selector: 'ngx-reservation-list',
@@ -63,7 +64,7 @@ export class ReservationsListComponent {
   private data: ReservationRow[];
   private _reservationService: ReservationService;
 
-  constructor(reservationService: ReservationService) {
+  constructor(reservationService: ReservationService, private alertService: AlertService) {
     reservationService.getReservationsForUser(ReservationsListComponent.USER_PLACEHOLDER).subscribe(reservations => {
 
       this.data = reservations.map(r =>
@@ -88,21 +89,23 @@ export class ReservationsListComponent {
   }
 
   deleteRecord(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      this._reservationService.deleteReservation(event.data.id).subscribe(
-        res => {
-          console.log(res);
-          event.confirm.resolve(event.source.data);
-        },
-        (err: HttpErrorResponse) => {
-          if (err.error instanceof Error) {
-            console.log('Client-side error occured.');
-          } else {
-            console.log('Server-side error occured.');
-          }
-        });
-    } else {
-      event.confirm.reject();
-    }
+    this.alertService.newSmallConfirmModal('Delete Confirmation', 'Are you sure you want to delete?',
+      () => {
+        this._reservationService.deleteReservation(event.data.id, event.data.date).subscribe(
+          res => {
+            console.log(res);
+            event.confirm.resolve(event.source.data);
+          },
+          (err: HttpErrorResponse) => {
+            if (err.error instanceof Error) {
+              console.log('Client-side error occured.');
+            } else {
+              console.log('Server-side error occured.');
+            }
+          });
+      },
+      () => {
+        event.confirm.reject();
+      });
   }
 }
