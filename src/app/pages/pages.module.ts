@@ -8,6 +8,7 @@ import { MachinesListModule } from './machines/machines.list.module';
 import { ReservationModule } from './reservation/reservation.module';
 import { StatsModule } from './stats/stats.module';
 
+
 const PAGES_COMPONENTS = [
   PagesComponent,
 ];

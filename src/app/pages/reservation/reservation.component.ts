@@ -10,6 +10,22 @@ import {
 import { AlertService } from '../../services/UI_tools/alertService';
 const moment = require('moment');
 
+
+class TimingsValidator {
+  public static validate(firstField, secondField) {
+
+    return (c: FormGroup) => {
+
+      return (c.controls && moment(c.controls[firstField].value).isBefore(moment(c.controls[secondField].value))) ? null : {
+        timingsBefore: {
+          valid: false,
+        },
+      };
+    };
+  }
+}
+
+
 @Component({
   selector: 'ngx-reservation-component',
   templateUrl: './reservation.html',
@@ -167,20 +183,5 @@ export class ReservationComponent {
 
   getDates() {
     return this.form.get('dates')['controls'];
-  }
-}
-
-
-class TimingsValidator {
-  public static validate(firstField, secondField) {
-
-    return (c: FormGroup) => {
-
-      return (c.controls && moment(c.controls[firstField].value).isBefore(moment(c.controls[secondField].value))) ? null : {
-        timingsBefore: {
-          valid: false,
-        },
-      };
-    };
   }
 }
