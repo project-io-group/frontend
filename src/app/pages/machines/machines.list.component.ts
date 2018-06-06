@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
-import { VMPool } from '../../services/vm_service/vm_pool';
-import { VMService } from '../../services/vm_service/vm_service';
+import {Component} from '@angular/core';
+import {LocalDataSource} from 'ng2-smart-table';
+import {VMPool} from '../../services/vm_service/vm_pool';
+import {VMService} from '../../services/vm_service/vm_service';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'ngx-machine-list',
@@ -13,7 +14,7 @@ import { VMService } from '../../services/vm_service/vm_service';
   `],
 })
 export class MachinesListComponent {
-  private data: VMPool[];
+
   settings = {
     actions: false,
     columns: {
@@ -32,6 +33,15 @@ export class MachinesListComponent {
       enabled: {
         title: 'Enabled',
         type: 'string',
+        filter: {
+          type: 'list',
+          config: {
+            list: [
+              {value: 'true', title: 'true'},
+              {value: 'false', title: 'false'},
+            ],
+          },
+        },
       },
       description: {
         title: 'Description',
@@ -40,12 +50,42 @@ export class MachinesListComponent {
     },
   };
 
+  private data: VMPool[];
+  private keywordSearchControl: FormControl;
+
   source: LocalDataSource = new LocalDataSource();
 
   constructor(private vmService: VMService) {
+
+    this.keywordSearchControl = new FormControl();
+    this.keywordSearchControl.valueChanges
+      .skip(2)
+      .distinctUntilChanged()
+      .debounceTime(1);
+
     this.vmService.getVMPools().subscribe(vmPools => {
       this.data = vmPools;
-      this.source.load(this.data);
-    })
+      this.source.load(this.data).then(() =>
+        this.keywordSearchControl.valueChanges
+          .subscribe(query => this.onKeywordSearch(query)));
+    });
+  }
+
+  onKeywordSearch(query: any) {
+
+    const keywords = query.split(',').map(k => k.toLocaleLowerCase());
+
+    const dataFilteredByKeywords = this.data.filter(vmPool => {
+
+      const columns = Object.values(vmPool).map(value =>
+        value.toString().toLocaleLowerCase());
+
+      return keywords.every(keyword =>
+        columns.some(column =>
+          column.includes(keyword)));
+
+    });
+
+    this.source.load(dataFilteredByKeywords);
   }
 }
