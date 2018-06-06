@@ -99,7 +99,7 @@ export class ReservationComponent {
 
   onSubmit(values) {
     if (this.form.valid) {
-      const vmPoolId = this.vmPools.find(vmPool => vmPool.displayName === values.vmPool).id;
+      const pool = this.vmPools.find(vmPool => vmPool.displayName === values.vmPool);
       const interval_dates = [];
       if (values.interval) {
         values.dates.forEach(date => {
@@ -117,7 +117,7 @@ export class ReservationComponent {
 
       this.reservationService.requestReservation(new ReservationRequestDto(
         1, // TODO: UserService.getCurrentUser()
-        vmPoolId,
+        pool.id,
         values.courseName,
         values.machinesNumber,
         Array.from(all_dates.values()),
@@ -126,15 +126,19 @@ export class ReservationComponent {
         response => {
           let modalContent = '';
           if (response.daysNotReserved.length === all_dates.size) {
-            modalContent = 'Machines are not available on selected dates, try using diferent' +
-              ' pool, minimazing number of machines or contact the admin'
+            modalContent = 'Machines are not available on selected dates, try using different' +
+              ' pool, minimizing number of machines or contact the admin'
           } else if (response.daysNotReserved.length > 0) {
             modalContent = 'Selected Virtual Machine Pools are' +
               ' not available on selected date(s): ' + response.daysNotReserved.map(date => moment(date).format('YYYY-MM-DD')).join(', ') +
-              '. Are You sure want to reserve all othres except mentioned above?';
+              '. Are You sure want to reserve all others except mentioned above?';
           } else {
-            modalContent = 'Enetered date is available. Are You' +
-              ' sure want to reserve this slot?';
+            modalContent = 'Selected date is available. Are you' +
+              ' sure you want to reserve this slot?';
+          }
+          if (!pool.enabled) {
+            modalContent += '\nSelected VM pool is currently disabled.' +
+              ' Request to enable it will be automatically sent to admin after confirming reservation.'
           }
           this.alertService.newSmallConfirmModal('Confirm Reservation', modalContent,
             () => {
