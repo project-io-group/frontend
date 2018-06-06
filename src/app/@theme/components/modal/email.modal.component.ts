@@ -26,7 +26,7 @@ import {Mail, MailService} from '../../../services/mail.service';
 export class EmailModalComponent {
 
   subject: string = `error`;
-  protected model: Mail;
+  model: Mail;
 
   constructor(private activeModal: NgbActiveModal, private mailService: MailService) {
     this.model = new Mail('', '');

@@ -14,6 +14,6 @@ import { AlertService } from '../../services/UI_tools/alertService';
 export class EmailWidgetComponent {
 
   @Input() subject: string;
-  constructor(protected alertService: AlertService) {
+  constructor(public alertService: AlertService) {
   }
 }

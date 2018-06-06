@@ -51,7 +51,7 @@ export class MachinesListComponent {
   };
 
   private data: VMPool[];
-  private keywordSearchControl: FormControl;
+  keywordSearchControl: FormControl;
 
   source: LocalDataSource = new LocalDataSource();
 
