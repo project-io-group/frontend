@@ -9,24 +9,6 @@ import {DataModule} from './data/data.module';
 import {AnalyticsService} from './utils/analytics.service';
 import {AppConfig} from '../app.config';
 
-const socialLinks = [
-  {
-    url: 'https://github.com/akveo/nebular',
-    target: '_blank',
-    icon: 'socicon-github',
-  },
-  {
-    url: 'https://www.facebook.com/akveo/',
-    target: '_blank',
-    icon: 'socicon-facebook',
-  },
-  {
-    url: 'https://twitter.com/akveo_inc',
-    target: '_blank',
-    icon: 'socicon-twitter',
-  },
-];
-
 const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
   ...NbAuthModule.forRoot({
