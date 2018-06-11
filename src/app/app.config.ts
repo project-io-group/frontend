@@ -5,4 +5,8 @@ export class AppConfig {
   public static get APP_NAME(): string {
     return 'Virtual Machine Management System'
   }
+
+  public static get DATE_FORMAT(): string {
+    return 'YYYY-MM-DD';
+  }
 }

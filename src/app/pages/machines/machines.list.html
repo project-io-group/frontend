@@ -3,6 +3,16 @@
     Virtual Machines List
   </nb-card-header>
   <nb-card-body>
-    <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+    <div class='form-inline input-group mb-2'>
+      <label for='keywordSearch' class='form-control-label input-group-addon'>
+        Keywords:
+      </label>
+      <input id='keywordSearch'
+             class='form-control full-width'
+             [formControl]='keywordSearchControl'
+             type='text'
+             placeholder='win7,true,intellij'>
+    </div>
+    <ng2-smart-table [settings]='settings' [source]='source'></ng2-smart-table>
   </nb-card-body>
 </nb-card>

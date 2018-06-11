@@ -37,6 +37,9 @@ import {
 } from './layouts';
 import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
+import { ConfirmModalComponent } from './components/modal/confirm.modal.component';
+import { AcknowledgeModalComponent } from './components/modal/acknowledge.modal.component';
+import { EmailModalComponent } from './components/modal/email.modal.component';
 
 const BASE_MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -67,6 +70,9 @@ const COMPONENTS = [
   SampleLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  ConfirmModalComponent,
+  AcknowledgeModalComponent,
+  EmailModalComponent,
 ];
 
 const PIPES = [
@@ -91,6 +97,7 @@ const NB_THEME_PROVIDERS = [
   imports: [...BASE_MODULES, ...NB_MODULES],
   exports: [...BASE_MODULES, ...NB_MODULES, ...COMPONENTS, ...PIPES],
   declarations: [...COMPONENTS, ...PIPES],
+  entryComponents: [ConfirmModalComponent, AcknowledgeModalComponent, EmailModalComponent],
 })
 export class ThemeModule {
   static forRoot(): ModuleWithProviders {
