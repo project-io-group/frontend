@@ -116,7 +116,7 @@ export class ReservationComponent {
       const end_time = moment(values.timings.endTime).format('HH:mm');
 
       this.reservationService.requestReservation(new ReservationRequestDto(
-        1, // TODO: UserService.getCurrentUser()
+        'test@vmms.com', // TODO: UserService.getCurrentUser()
         pool.id,
         values.courseName,
         values.machinesNumber,

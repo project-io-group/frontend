@@ -24,7 +24,7 @@ export class ReservationService {
 
 
 export class ReservationRequestDto {
-  userId: number;
+  userEmail: string;
   vmPoolId: number;
   courseName: string;
   machinesNumber: number;
@@ -32,9 +32,9 @@ export class ReservationRequestDto {
   startTime: string;
   endTime: string;
 
-  constructor(userId: number, vmPoolId: number, courseName: string, machinesNumber: number,
+  constructor(userEmail: string, vmPoolId: number, courseName: string, machinesNumber: number,
               dates: string[], startTime: string, endTime: string) {
-    this.userId = userId;
+    this.userEmail = userEmail;
     this.vmPoolId = vmPoolId;
     this.courseName = courseName;
     this.machinesNumber = machinesNumber;
