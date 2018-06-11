@@ -15,8 +15,7 @@ class TimingsValidator {
   public static validate(firstField, secondField) {
 
     return (c: FormGroup) => {
-
-      return (c.controls && moment(c.controls[firstField].value).isBefore(moment(c.controls[secondField].value))) ? null : {
+      return (moment(c.get(firstField).value).isBefore(moment(c.get(secondField).value))) ? null : {
         timingsBefore: {
           valid: false,
         },
@@ -140,7 +139,10 @@ export class ReservationComponent {
             () => {
               this.reservationService.confirmReservation(response.id)
                 .subscribe(
-                  () => this.form.reset(),
+                  () => {
+                    this.completerTouched = false;
+                    this.form.reset();
+                  },
                   () => this.alertService.newSmallAcknowledgeModal('Error', 'Error confirming reservation', null));
             },
             () => {
