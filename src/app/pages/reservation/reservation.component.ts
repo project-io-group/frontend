@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { VMService } from '../../services/vm_service/vm_service';
-import { CompleterData, CompleterService } from 'ng2-completer';
-import { VMPool } from '../../services/vm_service/vm_pool';
+import {Component} from '@angular/core';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {VMService} from '../../services/vm_service/vm_service';
+import {CompleterData, CompleterService} from 'ng2-completer';
+import {VMPool} from '../../services/vm_service/vm_pool';
 
-import {
-  ReservationRequestDto, ReservationService,
-} from '../../services/reservation_service/reservationService';
-import { AlertService } from '../../services/UI_tools/alertService';
+import {ReservationRequestDto, ReservationService} from '../../services/reservation_service/reservationService';
+import {AlertService} from '../../services/UI_tools/alertService';
+import {UserService} from '../../@core/data/users.service';
+
 const moment = require('moment');
 
 
@@ -45,12 +45,18 @@ export class ReservationComponent {
   completerTouched: boolean = false;
   endDateIsLast: boolean = true;
 
+  user: any;
+
   touchCompleter(): void {
     this.completerTouched = true;
   }
 
-  constructor(private vmService: VMService, private reservationService: ReservationService,
-              private completerService: CompleterService, private formBuilder: FormBuilder, private alertService: AlertService) {
+  constructor(private vmService: VMService,
+              private reservationService: ReservationService,
+              private completerService: CompleterService,
+              private formBuilder: FormBuilder,
+              private alertService: AlertService,
+              private userService: UserService) {
     this.vmPoolCompleterData = this.completerService
       .local(this.vmService.getVMPools().map(vmPools => this.vmPools = vmPools), 'displayName', 'displayName');
 
@@ -95,6 +101,8 @@ export class ReservationComponent {
     this.timings.controls['startTime'].valueChanges.subscribe(startDate => {
       this.timings.controls['endTime'].setValue(moment(startDate).add('1', 'h').add('30', 'm').toDate());
     });
+
+    this.userService.currentUser.subscribe(currentUser => this.user = currentUser)
   }
 
   onSubmit(values) {
@@ -116,7 +124,7 @@ export class ReservationComponent {
       const end_time = moment(values.timings.endTime).format('HH:mm');
 
       this.reservationService.requestReservation(new ReservationRequestDto(
-        'test@vmms.com', // TODO: UserService.getCurrentUser()
+        this.user,
         pool.id,
         values.courseName,
         values.machinesNumber,
