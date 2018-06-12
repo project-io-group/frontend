@@ -28,24 +28,11 @@ import 'rxjs/add/operator/delay';
                    tag="menu-sidebar"
                    responsive
                    [right]="sidebar.id === 'right'">
-        <nb-sidebar-header>
-          <a href="#" class="btn btn-hero-success main-btn">
-            <i class="ion ion-social-github"></i> <span>Support Us</span>
-          </a>
-        </nb-sidebar-header>
         <ng-content select="nb-menu"></ng-content>
       </nb-sidebar>
 
       <nb-layout-column class="main-content">
         <ng-content select="router-outlet"></ng-content>
-      </nb-layout-column>
-
-      <nb-layout-column left class="small" *ngIf="layout.id === 'two-column' || layout.id === 'three-column'">
-        <nb-menu [items]="subMenu"></nb-menu>
-      </nb-layout-column>
-
-      <nb-layout-column right class="small" *ngIf="layout.id === 'three-column'">
-        <nb-menu [items]="subMenu"></nb-menu>
       </nb-layout-column>
 
       <nb-layout-footer fixed>
@@ -64,47 +51,6 @@ import 'rxjs/add/operator/delay';
 })
 export class SampleLayoutComponent  implements OnDestroy {
 
-  subMenu: NbMenuItem[] = [
-    {
-      title: 'PAGE LEVEL MENU',
-      group: true,
-    },
-    {
-      title: 'Buttons',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/buttons',
-    },
-    {
-      title: 'Grid',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/grid',
-    },
-    {
-      title: 'Icons',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/icons',
-    },
-    {
-      title: 'Modals',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/modals',
-    },
-    {
-      title: 'Typography',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/typography',
-    },
-    {
-      title: 'Animated Searches',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/search-fields',
-    },
-    {
-      title: 'Tabs',
-      icon: 'ion ion-android-radio-button-off',
-      link: '/pages/ui-features/tabs',
-    },
-  ];
   layout: any = {};
   sidebar: any = {};
 
