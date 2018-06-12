@@ -1,0 +1,20 @@
+.completer-limit /deep/ .completer-dropdown {
+  overflow-y: auto;
+  max-height: 10rem;
+  overflow-x: hidden;
+}
+
+.btn-submit {
+  margin: 3rem;
+}
+
+
+.btn-date-remove-container {
+  margin-bottom: 15px;
+  margin-top: 2px;
+}
+
+.btn-date-add-container {
+  margin-top: 30px;
+  margin-bottom: 15px;
+}

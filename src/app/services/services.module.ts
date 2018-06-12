@@ -1,9 +1,11 @@
-import {BackendServicesProxy} from './remote/backend.services.proxy';
-import {NgModule} from '@angular/core';
-import {VMService} from './vm_service/vm_service';
-import {HttpClientModule} from '@angular/common/http';
-import {ReservationService} from './reservation_service/reservation_service';
+import { BackendServicesProxy } from './remote/backend.services.proxy';
+import { NgModule } from '@angular/core';
+import { VMService } from './vm_service/vm_service';
+import { HttpClientModule } from '@angular/common/http';
 import { AlertService } from './UI_tools/alertService';
+import { StatsService } from './stats/stats.service';
+import { MailService } from './mail.service';
+import { ReservationService } from './reservation_service/reservation.service';
 
 
 const OWN_PROVIDERS = [
@@ -11,6 +13,8 @@ const OWN_PROVIDERS = [
   VMService,
   ReservationService,
   AlertService,
+  StatsService,
+  MailService,
 ];
 
 const OWN_COMPONENTS = [];
