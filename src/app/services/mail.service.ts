@@ -9,10 +9,6 @@ export class MailService {
   constructor(private backendServicesProxy: BackendServicesProxy, private http: HttpClient) {
   }
 
-  getPossibleSubjects(): Observable<string[]> {
-    return Observable.of(['test'])
-  }
-
   sendMail(mail: Mail): Observable<Object> {
     const emailRequest = this.backendServicesProxy.createRequestURL('/email');
     return this.http.post(emailRequest, '', {

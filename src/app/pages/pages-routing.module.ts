@@ -12,10 +12,6 @@ const routes: Routes = [{
   component: PagesComponent,
   children: [
     {
-      path: 'dashboard',
-      component: DashboardComponent,
-    },
-    {
       path: 'virtual-machines',
       component: MachinesListComponent,
     },
@@ -29,7 +25,7 @@ const routes: Routes = [{
     },
     {
       path: '',
-      redirectTo: 'dashboard',
+      redirectTo: 'virtual-machines',
       pathMatch: 'full',
     },
   ],
